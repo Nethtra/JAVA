@@ -43,7 +43,7 @@ class dog{
 
 
 //java转义字符 和c差不多
-//但\r回车（回到某一行的开头）  会覆盖原来的内容 \b也是（退格）
+//但\r （回到某一行的开头）  会覆盖原来的内容   \b也是（退格）
 class a{
     public static void main(String[] args) {
         System.out.println("转义字ddd符\ndggg\r555\b");//
@@ -64,11 +64,11 @@ class a{
 //两个重要概念
 //首先  一个文件夹就是一个目录
 //相对路径  从当前目录开始形成的路径
+//绝对路径  从顶层开始形成的路径
 //举例  目前我在C:\Users\wang8\Documents\Visual Studio 2022目录下
 //现在要跳转到C:\Users\wang8\.vscode\extensions目录下
-//相对路径就是  ../../.vscode/extensions   //../表示往上一目录跳转
+//相对路径就是  ../../.vscode/extensions   ../表示往上一目录跳转
 //绝对路径就是C:\Users\wang8\.vscode\extensions
-//绝对路径  从顶层开始形成的路径
 
 
 //常用dos命令
@@ -86,5 +86,3 @@ class a{
 //删除文件 del
 //输入内容到文件 echo(同时创建文件并输入内容)
 //剪切 move
-//修改一次
-//修改二次
