@@ -25,13 +25,14 @@ class array {
         //score=new double[4] 这里才分配空间
         System.out.println(score);//[D@1b6d3586  这样输出的是申请的内存空间的值
         Scanner myscanner = new Scanner(System.in);
-        for (int i = 0; i < score.length; i++) {
+        for (int i = 0; i < score.length; i++) {//赋值
             score[i] = myscanner.nextDouble();
         }
         for (int i = 0; i < score.length; i++) {
             System.out.println(score[i]);
         }
         char a = 'a' + 1;//这样是没问题的
+        System.out.println(a);//b
         int i = 6;
         // char b='b'+i;//但是如果加了个变量的话会报错 需要强转
     }
@@ -46,8 +47,9 @@ class array {
 
 //数组赋值机制
 //java中的数组可以相互赋值 但是
+//ui
 //基本数据类型赋值 是值拷贝
-//引用数据类型赋值是 地址拷贝即传递地址   和函数调用差不多 给新数组改了元素会影响原数组
+//引用数据类型赋值是 地址拷贝即传递地址  此外数组名指向的也是地址  和函数调用差不多 给新数组改了元素会影响原数组
 class assignment {
 
     public static void main(String[] args) {
@@ -63,17 +65,13 @@ class assignment {
 //     arr2[]={3,2,1}
 //然后  arr2=arr1  这样arr2原来的内存空间就没有变量再引用 会自动被jvm释放
 
-//再来深入探讨一下  Java中赋值分为值拷贝和引用传递（地址拷贝）
-//值拷贝顾名思义   引用拷贝就是把地址拷贝一份
-//数组赋值是引用传递 此外数组名指向的也是地址
 
-
-//然后jvm内存分为  栈 堆 方法区
+//jvm内存分为  栈 堆 方法区
 //栈存储局部变量（定义在方法中的变量）使用完立即消失
 //堆存储new出来的对象数组等 每一个new出来的东西都有地址值 使用完会在垃圾回收期空闲时回收
 //方法区有常量池还有类加载信息
 //以int[] arr=new int[3]为例
-//arr是局部变量 在栈里 但是new的对象在堆里 有一个地址值 上面这一句就是把这个地址值给arr  所以就是arr指向了这个地址值
+//arr是局部变量 在栈里 但是new的对象在堆里 有一个地址值 上面这一句就是把这个地址值给arr  所以就是arr指向了这个地址值 arr只是一个引用
 //即int[] arr在栈 new int[3]在堆 引用在栈  数据在堆  通过地址相连
 
 //例题 数组添加
@@ -197,4 +195,3 @@ class insertArrat {
 }
 
 //随机数的产生方法  (int)(Math.random()*100)+1  表示1-100的随机数
-//dfasssssssssss
