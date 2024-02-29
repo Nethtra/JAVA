@@ -1,37 +1,39 @@
 package chapter06;
+
 import java.util.Scanner;
+
 //数组也是一种数据类型 是引用类型  一组同一类型的数据
 //先来看初始化方式
 //1静态初始化
 public class 数组01 {
     public static void main(String[] args) {
-        double[] hens={1,2.3,4};//这里定义的时候和c不一样 []可以写在数组名前也可以写在后
+        double[] hens = {1, 2.3, 4};//这里定义的时候和c不一样 []可以写在数组名前也可以写在后
         //前面括号不能加个数
         //但使用时还是hens[0]下标也是从0开始 Java中的下标叫索引
         //可以通过数组名.length来获取数组的长度
         System.out.println("数组长度 " + hens.length);
     }
 }
+
 //2动态初始化
-class array{
+class array {
     public static void main(String[] args) {
-         //数据类型 数组名[]=new 数据类型[元素个数];动态初始化元素个数可以是变量
+        //数据类型 数组名[]=new 数据类型[元素个数];动态初始化元素个数可以是变量
         //还有一种方式 先 数据类型 数组名[];
         //再            数组名=new 数据类型[元素个数]；
-        double score[]=new double[4];//double score[];这里只是声明
-                                     //score=new double[4] 这里才分配空间
+        double score[] = new double[4];//double score[];这里只是声明
+        //score=new double[4] 这里才分配空间
         System.out.println(score);//[D@1b6d3586  这样输出的是申请的内存空间的值
-        Scanner myscanner=new Scanner(System.in);
-        for(int i=0;i<score.length;i++)
-        {
-              score[i]=myscanner.nextDouble();
+        Scanner myscanner = new Scanner(System.in);
+        for (int i = 0; i < score.length; i++) {
+            score[i] = myscanner.nextDouble();
         }
-       for(int i=0;i<score.length;i++) {
-           System.out.println(score[i]);
-       }
-       char a='a'+1;//这样是没问题的
-       int i=6;
-      // char b='b'+i;//但是如果加了个变量的话会报错 需要强转
+        for (int i = 0; i < score.length; i++) {
+            System.out.println(score[i]);
+        }
+        char a = 'a' + 1;//这样是没问题的
+        int i = 6;
+        // char b='b'+i;//但是如果加了个变量的话会报错 需要强转
     }
 }
 //注意点
@@ -46,13 +48,13 @@ class array{
 //java中的数组可以相互赋值 但是
 //基本数据类型赋值 是值拷贝
 //引用数据类型赋值是 地址拷贝即传递地址   和函数调用差不多 给新数组改了元素会影响原数组
-class assignment{
+class assignment {
 
     public static void main(String[] args) {
-        int arr1[]={1,2,3,4};
-        int arr2[]=arr1;
+        int arr1[] = {1, 2, 3, 4};
+        int arr2[] = arr1;
         //也就是说数组名只是一个引用  都指向那一块内存空间
-        arr2[0]=10;
+        arr2[0] = 10;
         System.out.println(arr1[0]);
 
     }//但这里肯定不会被释放
@@ -66,7 +68,6 @@ class assignment{
 //数组赋值是引用传递 此外数组名指向的也是地址
 
 
-
 //然后jvm内存分为  栈 堆 方法区
 //栈存储局部变量（定义在方法中的变量）使用完立即消失
 //堆存储new出来的对象数组等 每一个new出来的东西都有地址值 使用完会在垃圾回收期空闲时回收
@@ -77,7 +78,7 @@ class assignment{
 
 //例题 数组添加
 //先静态分配 然后动态扩容 是否继续y/n
-class add{
+class add {
     public static void main(String[] args) {
         int[] arr = {19, 234, 34, 5, 637};//静态分配
         //考虑用dowhile
@@ -92,29 +93,26 @@ class add{
             Scanner myscanner = new Scanner(System.in);//添加最后一个
             Newarr[arr.length] = myscanner.nextInt();
 
-            arr=Newarr;//直接赋值 然后将Newarr销毁
+            arr = Newarr;//直接赋值 然后将Newarr销毁
             System.out.println("是否继续 y/n");
-            char judge=myscanner.next().charAt(0);
+            char judge = myscanner.next().charAt(0);
             lable1:
             //以下都是为输入的不是yn的情况做的
-            while(true) {
+            while (true) {
                 if (judge == 'n')
                     break lable;
-                else if (judge != 'n' && judge != 'y')
-                {
+                else if (judge != 'n' && judge != 'y') {
                     System.out.println("输入有误！请输入y/n!");
-                    judge=myscanner.next().charAt(0);
-                }
-                else if(judge=='y')
-                {
+                    judge = myscanner.next().charAt(0);
+                } else if (judge == 'y') {
                     break lable1;
                 }
             }
 
         }
-        while(true);//构建死循环
+        while (true);//构建死循环
 
-        for(int i=0;i< arr.length;i++)//输出
+        for (int i = 0; i < arr.length; i++)//输出
         {
             System.out.println(arr[i]);
         }
@@ -141,18 +139,17 @@ class add{
 //这里要注意Java的二维数组每个一维数组元素个数可以不同 可以在new的时候控制
 //行数一定要指明
 //下面是展示动态初始化3的一个例子
-class twodimensionnalarrary{
+class twodimensionnalarrary {
     public static void main(String[] args) {
-        int s=5;//动态初始化元素个数可以是变量
-        int arr[][]=new int[s][];//先把二维开起来
-        for(int i=0;i<arr.length;i++)
-        {
-            arr[i]=new int[i+1];//这里是开每一行
-            for(int j=0;j<arr[i].length;j++)//赋值每个
+        int s = 5;//动态初始化元素个数可以是变量
+        int arr[][] = new int[s][];//先把二维开起来
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = new int[i + 1];//这里是开每一行
+            for (int j = 0; j < arr[i].length; j++)//赋值每个
             {
-                arr[i][j]=i+1;
+                arr[i][j] = i + 1;
             }
-            for(int k=0;k<arr[i].length;k++)//正好输出
+            for (int k = 0; k < arr[i].length; k++)//正好输出
             {
                 System.out.print(arr[i][k]);
             }
@@ -165,45 +162,38 @@ class twodimensionnalarrary{
 
 
 //例题 在原来的一个有序数组插入一个新数据，仍使之有序
-class insertArrat{
+class insertArrat {
     public static void main(String[] args) {
-        int arr[]={19,51,81,93};
-        Scanner myscanner=new Scanner(System.in);
-        int insert=myscanner.nextInt();
+        int arr[] = {19, 51, 81, 93};
+        Scanner myscanner = new Scanner(System.in);
+        int insert = myscanner.nextInt();
         //首先记录要插入的位置(新数组的下标)
-        int z=-1;//不能是0
-        for(int i=0;i<arr.length;i++)
-        {
-            if(insert<arr[i])
-            {
-                z=i;
+        int z = -1;//不能是0
+        for (int i = 0; i < arr.length; i++) {
+            if (insert < arr[i]) {
+                z = i;
                 break;
             }
         }
-        if(z==-1)//放在最后的情况
-            z=arr.length;
+        if (z == -1)//放在最后的情况
+            z = arr.length;
 
         //然后就是开始添加
-        int Newarr[]=new int[arr.length+1];
-        for(int i=0,j=0;i<Newarr.length;i++)//这里注意拷贝用的双指针的思想
+        int Newarr[] = new int[arr.length + 1];
+        for (int i = 0, j = 0; i < Newarr.length; i++)//这里注意拷贝用的双指针的思想
         {
-            if(i!=z)
-            {
-                Newarr[i]=arr[j];
+            if (i != z) {
+                Newarr[i] = arr[j];
                 j++;
-            }
-            else
-            {
-                Newarr[i]=insert;
+            } else {
+                Newarr[i] = insert;
             }
 
         }
-        for(int i=0;i<Newarr.length;i++)
-        {
-            System.out.print(Newarr[i]+"  ");
+        for (int i = 0; i < Newarr.length; i++) {
+            System.out.print(Newarr[i] + "  ");
         }
     }
 }
 
 //随机数的产生方法  (int)(Math.random()*100)+1  表示1-100的随机数
-//modify
