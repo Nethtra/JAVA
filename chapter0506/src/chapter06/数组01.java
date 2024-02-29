@@ -197,3 +197,4 @@ class insertArrat {
 }
 
 //随机数的产生方法  (int)(Math.random()*100)+1  表示1-100的随机数
+//dfasssssssssss
