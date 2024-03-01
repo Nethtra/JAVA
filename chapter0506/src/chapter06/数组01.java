@@ -74,12 +74,11 @@ class assignment {
 //arr是局部变量 在栈里 但是new的对象在堆里 有一个地址值 上面这一句就是把这个地址值给arr  所以就是arr指向了这个地址值 arr只是一个引用
 //即int[] arr在栈 new int[3]在堆 引用在栈  数据在堆  通过地址相连
 
-//例题 数组添加
-//先静态分配 然后动态扩容 是否继续y/n
+//例题1 数组扩容 先静态分配 然后动态扩容 是否继续y/n
 class add {
     public static void main(String[] args) {
         int[] arr = {19, 234, 34, 5, 637};//静态分配
-        //考虑用dowhile
+        //考虑用do while
         lable:
         do {
             int[] Newarr = new int[arr.length + 1];//new一个新的 长度是原来加一
@@ -91,7 +90,7 @@ class add {
             Scanner myscanner = new Scanner(System.in);//添加最后一个
             Newarr[arr.length] = myscanner.nextInt();
 
-            arr = Newarr;//直接赋值 然后将Newarr销毁
+            arr = Newarr;//将Newarr赋值给arr 然后将Newarr销毁
             System.out.println("是否继续 y/n");
             char judge = myscanner.next().charAt(0);
             lable1:
@@ -137,19 +136,16 @@ class add {
 //这里要注意Java的二维数组每个一维数组元素个数可以不同 可以在new的时候控制
 //行数一定要指明
 //下面是展示动态初始化3的一个例子
-class twodimensionnalarrary {
+class TwoDimensionalArray {
     public static void main(String[] args) {
         int s = 5;//动态初始化元素个数可以是变量
         int arr[][] = new int[s][];//先把二维开起来
         for (int i = 0; i < arr.length; i++) {
-            arr[i] = new int[i + 1];//这里是开每一行
-            for (int j = 0; j < arr[i].length; j++)//赋值每个
+            arr[i] = new int[i + 1];//开每一行的一维数组 定为第几个一维数组就有几个元素
+            for (int j = 0; j < arr[i].length; j++)//赋值此行一维数组的元素
             {
                 arr[i][j] = i + 1;
-            }
-            for (int k = 0; k < arr[i].length; k++)//正好输出
-            {
-                System.out.print(arr[i][k]);
+                System.out.print(arr[i][j]);//正好输出
             }
             System.out.println("");
         }
@@ -159,10 +155,11 @@ class twodimensionnalarrary {
 //int[] x,y[];x是一维 y是二维
 
 
-//例题 在原来的一个有序数组插入一个新数据，仍使之有序
-class insertArrat {
+//例题2 在原来的一个有序数组插入一个新数据，仍使之有序
+class InsertArr {
     public static void main(String[] args) {
         int arr[] = {19, 51, 81, 93};
+        System.out.println("请输入要插入的数字:");
         Scanner myscanner = new Scanner(System.in);
         int insert = myscanner.nextInt();
         //首先记录要插入的位置(新数组的下标)
@@ -177,7 +174,7 @@ class insertArrat {
             z = arr.length;
 
         //然后就是开始添加
-        int Newarr[] = new int[arr.length + 1];
+        int Newarr[] = new int[arr.length + 1];//new新数组
         for (int i = 0, j = 0; i < Newarr.length; i++)//这里注意拷贝用的双指针的思想
         {
             if (i != z) {
@@ -186,12 +183,10 @@ class insertArrat {
             } else {
                 Newarr[i] = insert;
             }
-
         }
         for (int i = 0; i < Newarr.length; i++) {
             System.out.print(Newarr[i] + "  ");
         }
     }
 }
-
 //随机数的产生方法  (int)(Math.random()*100)+1  表示1-100的随机数
