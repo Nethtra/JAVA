@@ -3,6 +3,7 @@ package chapter08;//需要放在类的最上面 一个java最多一个写package
 //表示打包   包名
 
 //导包语法 import 包名   放在package下面 类定义上面
+
 import java.util.Scanner;//表示只引入scanner类
 import java.util.*;//表示引入java.util下的所有类
 //建议要用哪个类就单独导 全部导入会影响编译效率
@@ -33,10 +34,10 @@ import java.util.*;//表示引入java.util下的所有类
 //案例 用系统提供的类完成数组排序
 public class aIDEA和包l访问修饰符 {
     public static void main(String[] args) {
-        int[] arr={555,3,43,23,786};
+        int[] arr = {555, 3, 43, 23, 786};
         Arrays.sort(arr);
         for (int i = 0; i < arr.length; i++) {
-            System.out.print(arr[i]+" ");
+            System.out.print(arr[i] + " ");
         }
     }
 }
@@ -68,33 +69,3 @@ public class aIDEA和包l访问修饰符 {
 //F8逐语句
 //shift F8 跳出方法
 //F9执行到下一个断点
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

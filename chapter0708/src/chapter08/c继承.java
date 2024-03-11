@@ -10,11 +10,11 @@ package chapter08;
 // }
 
 //关于继承的细节
-//1私有属性和方法在子类中不能直接访问 可以通过父类间接访问（属性用方法return 方法用父类调用）
-//然后就是要注意 同包下的子类可以访问默认，不同包下子类不能访问默认，但可以访问受保护的
+//1父类的私有属性和方法在子类中不能直接访问 可以通过父类间接访问（属性用方法return 方法用父类调用）
 //子类与父类在同一个包下，子类可以访问父类默认修饰符修饰的属性
-//子类与父类不在同一个包下，子类不可以访问父类默认修饰符修饰的属性
-//2只要是类都需要通过构造器初始化，子类构造器一般只管自己的属性初始化 那么在内存当中，父类那一块的属性并没有初始
+//子类与父类不在同一个包下，子类不可以访问父类默认修饰符修饰的属性，但可以访问受保护的
+
+//2只要是类都需要通过构造器初始化，子类构造器一般只管自己的属性初始化 那么在内存当中，父类那一块的属性并没有初始化
 //所以子类必须调用父类的构造器以完成父类属性的初始化
 //先别急接着看3当创建子类对象时不管使用子类的哪个构造器都会默认调用父类的无参构造器
 //即子类构造器代码中有一行隐藏的super();
@@ -24,31 +24,36 @@ package chapter08;
 //子类如果想初始化对象，就得先让父类初始化对象
 //如果父类没有，或者只有无参构造器，子类不管调用无参/有参构造器，都得先调用父类的无参构造器
 //如果父类有一个有参构造器，并且把无参构造器覆盖。而子类想初始化对象，就得在构造器里面写super.(父类的有参构造器)
+
 //4关于super 只能放在子类构造器的第一行（言外之意super访问父类构造器时只能在子类构造器中使用（和this差不多））
 //而this访问构造器时也是只能放在构造器的第一行 所以this和super不能存在一个构造器
+
 //5java所有的类都是Object类的子类（都继承Object）
-//所以调构造器时一直往上追溯到object自上而下
-//6不能滥用继承 子类和父类必须有逻辑上的关系比如cat类继承animal类 puiple类继承student类
+//所以调构造器时一直往上追溯到object自上而下初始化
+//6不能滥用继承 子类和父类必须有逻辑上的关系比如cat类继承animal类 pupil类继承student类
 
 //import jdk.nashorn.internal.ir.CallNode;
 
 
 //继承的内存布局
 //先来写几个类
-class GrandPa{
+class GrandPa {
     String name = "爷爷";
-    String hobby="旅游";
+    String hobby = "旅游";
 }
-class Father extends GrandPa{
-    String name="爸爸";
-    int age=33;
+
+class Father extends GrandPa {
+    String name = "爸爸";
+    int age = 33;
 }
-class Son extends Father{
-    String name="儿子";
-   private int age=12;
+
+class Son extends Father {
+    String name = "儿子";
+    private int age = 12;
 }
+
 //这里儿子类继承爸爸类再继承爷爷类
-class Test{
+class Test {
     public static void main(String[] args) {
         Son son = new Son();
         //这一条执行时 会先向上找到Object类 自上而下加载类信息在方法区
@@ -66,41 +71,44 @@ class Test{
 
 //练习题
 //1看图说话
-class A{
-    public A()
-    {//4来到了这里输出
+class A {
+    public A() {//4来到了这里输出
         System.out.println("我是A类");
     }
 }
-class B extends A{
-    public B()
-    {
+
+class B extends A {
+    public B() {
         System.out.println("我是B类的无参构造器");
     }
-    public B (String name)//3
+
+    public B(String name)//3
     {//这里没写出来还有个默认super()去调a的无参构造器
         System.out.println("我是B类的有参构造器");//5
     }
 }
-class C extends B{
+
+class C extends B {
     public C()//程序从这里开始
     {
         this("hello");//1这里调用了c的有参构造器 而且因为第一行是this所以没了super
         System.out.println("我是C类的无参构造器");//7
     }
-    public C(String name)
-    {
+
+    public C(String name) {
         super("haha");//2我们说子类初始化必须先调父类构造器 这里有手动的super找b的有参构造器
         System.out.println("我是C类的有参构造器");//6
     }
 }
+
 //然后main方法中new了一个C对象 问输出什么
-//C c=new C();
-class Test1{
+//C c=new C(); 调用无参构造器
+class Test1 {
     public static void main(String[] args) {
-        C c=new C();
+        C c = new C();
     }
 }
+
 
 //super关键字 代表父类的引用 用于访问父类的属性 方法 构造器
 //和this差不多 只不过this是本类 super是在子类访问父类
@@ -108,33 +116,35 @@ class Test1{
 //访问父类构造器 只能放在子类构造器第一句且只能有一句super
 //（遵守访问修饰符规则）
 //这时候我们回过头来看刚才写的三个类
-class GrandPa1{
+class GrandPa1 {
     String name = "爷爷";
-    String hobby="旅游";
-    public void hello()
-    {
+    String hobby = "旅游";
+
+    public void hello() {
         System.out.println("d");
     }
 }
-class Father1 extends GrandPa1{
-    String name="爸爸";
-    int age=33;
+
+class Father1 extends GrandPa1 {
+    String name = "爸爸";
+    int age = 33;
+
     public void hello()//在这里建一个方法
     {
         System.out.println("我是father的hello");
     }
 }
-class Son1 extends Father1{
-    String name="儿子";
-    private int age=12;
-    public void hello()
-    {
+
+class Son1 extends Father1 {
+    String name = "儿子";
+    private int age = 12;
+
+    public void hello() {
         System.out.println("我是son的hello");
     }
 
     //要在子类访问父类hello方法的话
-    public void hello1()
-    {
+    public void hello1() {
         hello();
         this.hello();//这两个是等价的 从本类开始找 没有找到就往上继续 直到找到 被private阻塞或者没找到就报错
         //和上面说的差不多 只不过上面是new了对象的
@@ -143,7 +153,7 @@ class Son1 extends Father1{
         //用super 但如果多级同名就只能就近访问
     }
     //属性也差不多这样访问规则
-    //这里提炼出一点规则 就是当子类父类有重名属性或者方法时为了访问父类的属性和方法必须通过super
+    //这里提炼出一点规则 就是当子类父类有重名属性或者方法时为了在子类访问父类的属性和方法必须通过super
     //但是没重名的话用super this 直接访 都是一样的 （因为会自动往上找）
 }
 //this和super的比较
@@ -168,7 +178,7 @@ class Son1 extends Father1{
 //Person类包括属性 name age 和构造器 方法say来返回自我介绍的字符串
 //Student类继承Person类 增加属性id score及构造器 say方法重写来返回自我介绍的字符串
 //在main中分别创建两个类的对象 并调用say方法
-class Person{
+class Person {
     private String name;
     private int age;
 
@@ -176,10 +186,11 @@ class Person{
         this.name = name;
         this.age = age;
     }
-    public String say()
-    {
-        return "我叫 "+name+" 年龄 "+age;
+
+    public String say() {
+        return "我叫 " + name + " 年龄 " + age;
     }
+
     public String getName() {
         return name;
     }
@@ -196,7 +207,8 @@ class Person{
         this.age = age;
     }
 }
-class Student extends Person{
+
+class Student extends Person {
     private int id;
     private int score;
 
@@ -205,10 +217,11 @@ class Student extends Person{
         this.id = id;
         this.score = score;
     }
-    public String say()
-    {
-        return super.say()+" id "+id+" 成绩 "+score;
+
+    public String say() {
+        return super.say() + " id " + id + " 成绩 " + score;
     }
+
     public int getId() {
         return id;
     }
@@ -225,24 +238,12 @@ class Student extends Person{
         this.score = score;
     }
 }
-class Test2{
+
+class Test2 {
     public static void main(String[] args) {
-        Person 东雪莲 = new Person("东雪莲",40);
+        Person 东雪莲 = new Person("东雪莲", 40);
         System.out.println(东雪莲.say());
         Student 丁真 = new Student("丁真", 21, 15, 100);
         System.out.println(丁真.say());
     }
 }//两个say构成了方法重写
-
-
-
-
-
-
-
-
-
-
-
-
-
