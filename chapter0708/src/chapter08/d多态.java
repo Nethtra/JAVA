@@ -2,17 +2,17 @@ package chapter08;
 //Polymorphism
 //多态 方法或对象具有多种形态
 //前提
-//两个对象存在继承关系
+//两个类存在继承关系
 //有父类引用指向子类对象
 //方法的多态体现在重载和重写
-//对象的多态体现在
+//对象的多态体现在向上向下转型
 //首先知道编译类型看=左边 运行类型看=右边
 //一个对象的编译类型和运行类型可以不一样
 //编译类型在定义对象时就确定 不能改变
 //运行类型可以改变
 //例如Animal类是Dog的父类
 //Animal animal=new Dog();  编译类型是Animal运行类型是Dog
-//其实animal就是一个对象的引用  **可以把父类的对象引用指向子类** 这个dog对象可以是animal也可以是dog 这也体现了多态
+//其实animal就是一个对象的引用  **可以把父类的对象引用指向子类的对象** 这个dog对象可以是animal也可以是dog 这也体现了多态
 //好处
 //提高了程序扩展性 定义方法的时候使用父类型作为参数 在使用时可以传入具体的子类型 减少重载的次数
 //例子就是比如master类  animal类 food类
@@ -35,46 +35,47 @@ package chapter08;
 //向下转型是为了可以拿到子类的方法，向上转型是为了可以调用父类成员和子类重写的方法
 
 //比较运算符instanceOf 返回true或者false
-//用于判断对象（左边）的运行类型是否属于（右边）类或者他的子类
+//用于判断一个具体的对象（左边）的运行类型是否属于（右边）的类或者他的子类
 
 //Java动态绑定机制**
 //当调用对象的方法时 方法会与对象的运行类型绑定（内存地址）
 //但是属性不会 没有动态绑定机制
 //用一道题来讲***
-class A1{
-    public int i=10;
-    public int sum()
-    {
-        return getI()+10;
+class A1 {
+    public int i = 10;
+
+    public int sum() {
+        return getI() + 10;
     }
-    public int sum1()
-    {
-        return i+10;
+
+    public int sum1() {
+        return i + 10;
     }
-    public int getI()
-    {
+
+    public int getI() {
         return i;
     }
 }
+
 class B1 extends A1 {//B1继承了A1类 成员名全部相同
     public int i = 20;
 
-//    public int sum() {
+    //    public int sum() {
 //        return i + 20;
 //    }
 //    public int sum1()
 //    {
 //        return i+10;
 //    }
-    public int getI()
-    {
+    public int getI() {
         return i;
     }
 
 }
-class Test3{
+
+class Test3 {
     public static void main(String[] args) {
-        A1 a=new B1();//向上转型
+        A1 a = new B1();//向上转型
         //先来看输出
         System.out.println(a.sum());//40
         System.out.println(a.sum1());//30
@@ -93,7 +94,7 @@ class Test3{
 //放在同一数组中 并调用say(返回String)方法 和学生和老师的特有方法
 //Person1有name和age属性  Student1多了score属性和study方法  Teacher多了salary属性和teach方法
 
-class Person1{
+class Person1 {
     private String name;
     private int age;
 
@@ -117,12 +118,13 @@ class Person1{
     public void setAge(int age) {
         this.age = age;
     }
-    public String say()
-    {
-        return "姓名 "+name+" 年龄 "+age;
+
+    public String say() {
+        return "姓名 " + name + " 年龄 " + age;
     }
 }
-class Student1 extends Person1{
+
+class Student1 extends Person1 {
     private double score;
 
     public Student1(String name, int age, double score) {
@@ -140,14 +142,15 @@ class Student1 extends Person1{
 
     @Override
     public String say() {
-        return super.say()+" 成绩 "+score;
+        return super.say() + " 成绩 " + score;
     }
-    public void study()
-    {
-        System.out.println("学生 "+getName()+"正在study");
+
+    public void study() {
+        System.out.println("学生 " + getName() + "正在study");
         //这里因为name私有 所以得用get方法获取  这也体现了get方法的作用
     }
 }
+
 class Teacher extends Person1 {
     private double salary;
 
@@ -169,29 +172,29 @@ class Teacher extends Person1 {
         return super.say() + " 薪水 " + salary;
     }
 
-    public void teach()
-    {
-        System.out.println("老师 "+getName()+"正在教Java");
+    public void teach() {
+        System.out.println("老师 " + getName() + "正在教Java");
     }
 }
-class Test4{
+
+class Test4 {
     public static void main(String[] args) {
-        Person1[] person=new Person1[5];//因为父类引用可以指向子类对象 所以数组也可以放子类
-        person[0]=new Person1("张三",21);
-        person[1]=new Student1("昊京",25,0);
-        person[2]=new Student1("益西",18,100);
-        person[3]=new Teacher("丁真",21,10000);
+        Person1[] person = new Person1[5];//因为父类引用可以指向子类对象 所以数组也可以放子类
+        person[0] = new Person1("张三", 21);
+        person[1] = new Student1("昊京", 25, 0);
+        person[2] = new Student1("益西", 18, 100);
+        person[3] = new Teacher("丁真", 21, 10000);
         person[4] = new Teacher("孙笑川", 21, 0);
-        for (int i = 0; i < person.length; i++)
-        {
+        for (int i = 0; i < person.length; i++) {
             //Person1是编译类型  运行类型每一个元素都不一样
+
             System.out.println(person[i].say());//动态绑定运行类型
             //因为study和teach是特有方法 所以用父类引用直接.是.不到的
             //考虑怎么实现
-            if(person[i] instanceof Student1)//巧用instanceof
-                ((Student1)person[i]).study();//然后向下转型
-            else if(person[i] instanceof Teacher)
-                ((Teacher)person[i]).teach();
+            if (person[i] instanceof Student1)//巧用instanceof
+                ((Student1) person[i]).study();//然后向下转型
+            else if (person[i] instanceof Teacher)
+                ((Teacher) person[i]).teach();
         }
 
     }
@@ -206,7 +209,7 @@ class Test4{
 //测试类中添加一个方法showEmpAnnal(Employee e)，实现获取任何员工对象的年工资
 //井在main方法中调用该方法测试类中添加一个方法testWork
 //如果是普通员工，则调用work方法，如果是经理，则调用manage方法
-class Employee{
+class Employee {
     private String name;
     private double salary;
 
@@ -236,30 +239,34 @@ class Employee{
         this.salary = salary;
     }
 }
-class Worker extends Employee{
+
+class Worker extends Employee {
     public Worker(String name, double salary) {
         super(name, salary);
     }
-    public void work()
-    {
-        System.out.println("工人 "+getName()+" 正在打工 ");
+
+    public void work() {
+        System.out.println("工人 " + getName() + " 正在打工 ");
     }
+
     @Override
     public double getAnnual() {
         return super.getAnnual();
     }
 }
-class Manager extends Employee{
+
+class Manager extends Employee {
     private double bonus;
 
     @Override
     public double getAnnual() {//经理的要加上奖金
-        return super.getAnnual()+bonus;
+        return super.getAnnual() + bonus;
     }
-    public void manage()
-    {
-        System.out.println("经理 "+getName()+"正在manage");
+
+    public void manage() {
+        System.out.println("经理 " + getName() + "正在manage");
     }
+
     public Manager(String name, double salary, double bonus) {
         super(name, salary);
         this.bonus = bonus;
@@ -274,29 +281,30 @@ class Manager extends Employee{
     }
 }
 
-class Test5{
+class Test5 {
     public static void main(String[] args) {
-        Worker tom=new Worker("tom",10000);
-        Manager mary=new Manager("mary",20000,340000);//注意这里没有向上转型
-        Test5 test5=new Test5();
+        Worker tom = new Worker("tom", 10000);
+        Manager mary = new Manager("mary", 20000, 340000);//注意这里没有向上转型
+        Test5 test5 = new Test5();
 
         test5.showEmpAnnal(tom);
-        test5.showEmpAnnal(mary);//这一块先等等 我也不会
+        test5.showEmpAnnal(mary);
         test5.testWork(tom);
         test5.testWork(mary);
     }
+
     public void showEmpAnnal(Employee e)//传进来的是worker和manager但是接收他的却是它们的父类Employee，接受的时候已经相当于帮你自动向上转型了
     {//这里相当于已经向上转型 e就是
         System.out.println(e.getAnnual());//已经动态绑定了运行类型
     }
-    public void testWork(Employee e)
-    {//它传进来的的确是 work 和manager
+
+    public void testWork(Employee e) {//它传进来的的确是 worker 和manager
         // 但是接收他的却是它们的父类Employee，接受的时候已经相当于帮你自动向上转型了
         // 因为work和manage都是特有方法 所以用的时候需要向下转型
-        if(e instanceof Worker)
-            ((Worker)e).work();
-        else if(e instanceof Manager)
-            ((Manager)e).manage();
+        if (e instanceof Worker)
+            ((Worker) e).work();
+        else if (e instanceof Manager)
+            ((Manager) e).manage();
     }
 
 }

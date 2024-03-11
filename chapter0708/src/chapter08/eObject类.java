@@ -8,7 +8,7 @@ package chapter08;
 //判断引用类型比较地址是否相同
 
 //equals方法  是Object类中的方法 只能判断引用类型 默认比较地址是否相等(object中)
-//但是Object的子类中往往重写了该方法 比如String类中是比较的就是字符串的内容是否一样 还有integer是判断值是否一样
+//但是Object的子类中往往重写了该方法 比如String类中是比较的就是字符串的内容是否一样 还有Integer是判断值是否一样
 //ctrl b查看源码
 //这是Object类的equals
 //public boolean equals(Object obj) {
@@ -17,7 +17,7 @@ package chapter08;
 
 //做个练习 自己重写equals方法
 //判断两个Person_对象的内容是否相等 如果两个对象的各个属性都一样返回true反之false
-class Test_{
+class Test_ {
     public static void main(String[] args) {
         Person_ person_1 = new Person_("库克", 50, '男');
         Person_ person_2 = new Person_("库克", 50, '男');
@@ -31,7 +31,7 @@ class Test_{
     }
 }
 
-class Person_{
+class Person_ {
     private String name;
     private int age;
     private char gender;
@@ -39,16 +39,16 @@ class Person_{
     //自己重写equals
     public boolean equals(Object obj)//这里实参传过来时就已经向上转型了
     {
-        if(obj==this)
-            return true;
-        if(obj instanceof Person_)
-        {
-            //所以这里先要向下转型 才能访问到obj的属性（思路就是比obj和this的属性）
-            return this.name.equals(((Person_)obj).name)&&this.age==((Person_)obj).age&&this.gender==((Person_)obj).gender;
+        if (obj == this)
+            return true;//地址相同直接返回true
+        if (obj instanceof Person_) {
+            //这里先要向下转型 才能访问到obj的属性（思路就是比obj和this的属性）
+            return this.name.equals(((Person_) obj).name) && this.age == ((Person_) obj).age && this.gender == ((Person_) obj).gender;
             //这里我合成了   也可以把向下转型细写出来先
         }
         return false;
     }
+
     public Person_(String name, int age, char gender) {
         this.name = name;
         this.age = age;
@@ -90,15 +90,15 @@ class Person_{
 //在学集合时 如果需要的话 hashCode也会重写
 
 
-//toString方法 toString()
+//toString方法 toString();
 //Object类的toString默认返回全类名（包名和类名）+@+哈希值的十六进制
 //子类往往重写toString方法用于返回对象的属性信息 可以用快捷键alt insert重写
 //当sout一个对象时 就会默认调用.toString();
-class book{
+class book {
     double price;
     String name;
 
-    @Override//这就是重写了
+    @Override
     public String toString() {
         return "book{" +
                 "price=" + price +
@@ -107,7 +107,7 @@ class book{
     }
 }
 
-//finalize 方法
+//finalize方法 finalize();
 //当对象被回收时系统自动调用finalize方法 子类可以重写该方法来做一些释放资源的操作
 //对象什么时候被回收：当某个对象没有任何引用时 jvm认为对象是一个垃圾对象 会调用垃圾回收机制 并调用finalize方法
 //注意的是垃圾回收机制由系统决定是否调用 当一个对象没有任何引用时不一定马上就会调finalize
