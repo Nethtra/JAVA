@@ -16,41 +16,40 @@ package chapter09;
 //先别把注意力放在抽象类上 主要看这个模式
 //编写方法计算代码耗时
 //job
-abstract class Templet{
+abstract class Templet {
     abstract void job();
-//    {
-//
-//    }
+
     public void calculate()//把子类方法共同要做的拿到父类里
     {
-        long startTime=System.currentTimeMillis();//开始时间
+        long startTime = System.currentTimeMillis();//开始时间
         job();
-        long endTime=System.currentTimeMillis();//结束时间
-        System.out.println(endTime-startTime);
+        long endTime = System.currentTimeMillis();//结束时间
+        System.out.println(endTime - startTime);
     }
 }
 
-class A extends Templet{
+class A extends Templet {
     @Override
     public void job() {
-        int sum=0;
+        int sum = 0;
         for (int i = 0; i < 900000; i++) {
-            sum+=i;
-            sum+=i+1;
+            sum += i;
+            sum += i + 1;
         }
     }
 }
-class B extends Templet
-{
+
+class B extends Templet {
     @Override
     public void job() {
-        int sum=1;
+        int sum = 1;
         for (int i = 0; i < 999999; i++) {
-            sum*=i+1;
+            sum *= i + 1;
         }
     }
 }
-class Test1{
+
+class Test1 {
     public static void main(String[] args) {
         B b = new B();
         A a = new A();

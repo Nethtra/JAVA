@@ -5,13 +5,13 @@ package chapter09;
 //接口中可以有抽象方法 静态方法（可以不加static） 普通方法（但需要default在最前修饰） 属性也可以有
 //语法 interface 接口名{
 // }
-//类implements接入接口 必须实现接口中的抽象方法
+//一个类implements接口 必须实现接口中的方法 除非这个类也是抽象类或者定义为抽象方法
 //就像协议一样 接口中有协议 类接入接口就必须也实现协议
 //我来看 类实现接口和子类继承父类差不多 但是实现接口必须实现接口的方法 而且方法名还不能改
 //规范了开发    反过来看抽象方法 也可以用重写来实现 但是更规范
-//应用场景   多人开发时可以都接入同一接口 这样规范了方法名 而且调用时可以写一个方法传入接口类型的对象
+//应用场景   多人开发时可以都接入同一接口 这样规范了方法名 形参可以用接口类型 实际传入实现了该接口的类的对象
 //相当于向上转型 然后在方法里用形参.出方法名 根据动态绑定就会调用接入接口的相应方法
-//接口不能被实例化 接口类型可以指向实现了该接口的类的对象示例
+//接口不能被实例化 但是接口类型可以指向实现了该接口的类的对象示例
 //接口中的方法默认都是public所以不用写 抽象方法不用写abstract (因为接入接口的大多不在一个包内所以设计的人就干脆默认public)
 //接口中的属性默认是 public static final(必须初始化)
 //抽象类实现接口 可以不用实现接口的方法
@@ -24,21 +24,23 @@ package chapter09;
 //继承解决代码的复用性
 //接口设计规范并让其他类来实现这些方法
 //从字面意思来讲 继承是与生俱来的 而接口是后天学习来的
-class BigMonkey{
+class BigMonkey {
     private String name;
 
     public BigMonkey(String name) {
         this.name = name;
     }
-    public void climb()
-    {
+
+    public void climb() {
         System.out.println("猴子爬树");
     }
 }
-interface Fish{
+
+interface Fish {
     void swim();
 }
-class LittelMonkey extends BigMonkey implements Fish{
+
+class LittelMonkey extends BigMonkey implements Fish {
     public LittelMonkey(String name) {
         super(name);
     }
@@ -48,7 +50,8 @@ class LittelMonkey extends BigMonkey implements Fish{
         System.out.println("猴子学会了游泳");
     }
 }
-class Test2{
+
+class Test2 {
     public static void main(String[] args) {
         LittelMonkey tom = new LittelMonkey("Tom");
         tom.swim();
@@ -63,52 +66,58 @@ class Test2{
 //接口类型的数组可以存实现了这个接口的类的对象
 //例题：Usb数组中存放Phone和Camera对象 Phone类和Camera类实现Usb接口 Phone类特有的方法call
 //main方法中遍历数组如果是Phone对象除了调用接口定义的方法外还要调用特有方法
-interface Usb{
+interface Usb {
     void usb();
 }
-class Phone implements Usb{
+
+class Phone implements Usb {
     @Override
     public void usb() {
         System.out.println("usb2.0");
     }
-    public void call()
-    {
+
+    public void call() {
         System.out.println("我可以打电话");
     }
 }
-class Camera implements Usb{
+
+class Camera implements Usb {
     @Override
     public void usb() {
         System.out.println("usb3.2gen2");
     }
 }
-class Test3{
+
+class Test3 {
     public static void main(String[] args) {
-        Usb[] usb=new Usb[2];//创建接口类型的数组
-        usb[0]=new Phone();//这里相当于已经向上转型
-        usb[1]=new Camera();
+        Usb[] usb = new Usb[2];//创建接口类型的数组
+        usb[0] = new Phone();//这里相当于已经向上转型
+        usb[1] = new Camera();
         for (int i = 0; i < usb.length; i++) {
             usb[i].usb();//这里会动态绑定
-            if(usb[i] instanceof Phone)
-                ((Phone)usb[i]).call();//别忘了向下转型
+            if (usb[i] instanceof Phone)
+                ((Phone) usb[i]).call();//别忘了向下转型
         }
-
     }
 }
 
 //接口多态传递
-interface AA{
+interface AA {
     void hello();
 }
-interface BB extends AA{}
-class CC implements BB{
+
+interface BB extends AA {
+}
+
+class CC implements BB {
     @Override
     public void hello() {
     }
 }
-class Test4{
+
+class Test4 {
     public static void main(String[] args) {
-        AA aa=new CC();
+        AA aa = new CC();
     }
 }
 //想不到吧还能这么玩 相当于CC也实现了AA 而且AA的引用还能指向CC
