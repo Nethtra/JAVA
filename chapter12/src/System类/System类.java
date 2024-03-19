@@ -10,11 +10,11 @@ import java.util.Arrays;
 //exit(0)表示程序正常退出
 //currentTimeMillis 返回当前时间距离时间戳的毫秒数
 //arraycopy 数组拷贝 下面展示一下
-class Test{
+class Test {
     public static void main(String[] args) {
-        int[] arr={1,2,3};
-        int[] arr1=new int[3];
-        System.arraycopy(arr,0,arr1,0,arr.length);
+        int[] arr = {1, 2, 3};
+        int[] arr1 = new int[3];
+        System.arraycopy(arr, 0, arr1, 0, arr.length);
         //解释一下5个参数
         //1源数组
         //2源数组从哪个下标开始拷贝
@@ -25,20 +25,4 @@ class Test{
         System.out.println(System.currentTimeMillis());
     }
 }
-//Array.copyOf底层用的也是arraycopy 但一般还是用Array.copyOf
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+//Arrays.copyOf底层用的也是arraycopy 但一般还是用Arrays.copyOf

@@ -17,7 +17,7 @@ import java.util.Date;
 
 class Test2{
     public static void main(String[] args) {
-        //用now方法来返回一个当前日期时间的对象
+        //用静态now方法来返回一个当前日期时间的对象
         LocalDateTime ldt=LocalDateTime.now();
         System.out.println(ldt);//可以直接输出
         //也可以调get方法
