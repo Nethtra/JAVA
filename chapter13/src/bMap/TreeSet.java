@@ -11,14 +11,14 @@ import java.util.TreeSet;
 //TreeSet是实现了Set的类 底层是TreeMap
 //刚才说TreeSet跟HashSet比是有序的
 //我们来看看怎么有序
-class Test{
+class Test {
     public static void main(String[] args) {
         //TreeSet treeset = new TreeSet(); //TreeSet里有四个构造器 当我们使用无参构造器时 默认使用key的compareTo方法排序
         TreeSet treeset = new TreeSet(new Comparator() {
             @Override
             public int compare(Object o1, Object o2) {
                 //return ((String)o1).compareTo((String)o2);//这里我们用compareTo
-                return ((String)o1).length()-((String)o2).length();//如果是根据长度排
+                return ((String) o1).length() - ((String) o2).length();//如果是根据长度排
                 //有意思的就在这 因为调用compare时看的是返回>0<0还是 从而决定谁在前谁在后
                 //而在=0时会认为key相等 不会add 所以表现在length就是长度相等不会添加
                 //所以输出的时候只有三个
@@ -35,40 +35,3 @@ class Test{
 }
 //HashSet和TreeSet基本一样 就是k-v键值对
 //而且当添加相同元素时会替换value
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

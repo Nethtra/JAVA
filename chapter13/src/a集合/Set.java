@@ -17,7 +17,7 @@ import java.util.Objects;
 //
 //来讲HashSet
 //HashSet的底层是HashMap HashMap的底层是数组＋链表＋红黑树
-//所谓数组+链表 就是Node类型的数组中（通常叫table）每一个索引位置的Node对象都可以再链接下去 当table扩展到一定程度时 就会产生红黑树
+//所谓数组+链表 就是HashMap$Node类型的数组中（通常叫table）每一个索引位置的Node对象都可以再链接下去 当table扩展到一定程度时 就会产生红黑树
 //我们来先模拟一下HashSet的底层（其实就是HashMap）
 class Node1 {//先定义一下节点类型
     Object item;

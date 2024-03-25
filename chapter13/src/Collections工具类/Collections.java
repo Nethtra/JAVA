@@ -7,7 +7,7 @@ import java.util.*;
  * @version 1.0
  */
 //用于操作Set List Map等集合的工具类 提供一系列静态方法
-class Test{
+class Test {
     public static void main(String[] args) {
         //以ArrayList集合为例 注意List是有序的
         ArrayList list = new ArrayList();
@@ -31,12 +31,12 @@ class Test{
         Collections.sort(list, new Comparator() {
             @Override
             public int compare(Object o1, Object o2) {
-                return ((String)o1).length()-((String)o2).length();
+                return ((String) o1).length() - ((String) o2).length();
             }
         });
         System.out.println(list);
         //swap(List,int i,int j)交换索引ij位置的元素
-        Collections.swap(list,1,3);
+        Collections.swap(list, 1, 3);
         System.out.println(list);
 
         //查找操作
@@ -50,28 +50,10 @@ class Test{
         //替换操作
         System.out.println("============================");
         //void copy(List dest,List src)将集合src复制到dest
-        List dest=new ArrayList(10);//为什么括不到10？？
-        Collections.copy(dest,list);
+        List dest = new ArrayList(10);//为什么括不到10？？
+        Collections.copy(dest, list);
         System.out.println(dest);
         //boolean replaceAll(List list,Object oldVal,Object newVal)
         //使用newVal替换List中的所有旧值
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
