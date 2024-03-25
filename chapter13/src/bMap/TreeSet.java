@@ -13,7 +13,7 @@ import java.util.TreeSet;
 //我们来看看怎么有序
 class Test {
     public static void main(String[] args) {
-        //TreeSet treeset = new TreeSet(); //TreeSet里有四个构造器 当我们使用无参构造器时 默认使用key的compareTo方法排序
+        //TreeSet treeSet = new TreeSet(); //TreeSet里有四个构造器 当我们使用无参构造器时 默认使用key的compareTo方法排序
         TreeSet treeset = new TreeSet(new Comparator() {
             @Override
             public int compare(Object o1, Object o2) {
@@ -33,5 +33,3 @@ class Test {
         System.out.println(treeset);
     }
 }
-//HashSet和TreeSet基本一样 就是k-v键值对
-//而且当添加相同元素时会替换value
