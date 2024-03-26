@@ -119,7 +119,7 @@ class Test3 {
         col.add(new Book("颜如玉", "100.0"));
         col.add(new Book("黄金屋", "66.9"));
         //上面都是复制的
-        for (Object o : col) {//快捷键I
+        for (Object o : col) {//快捷键I  因为不确定集合中的元素类型 所以用Object接收
             System.out.println(o);
         }
 
