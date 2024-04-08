@@ -1,6 +1,12 @@
 # JAVA
 Document my Java learning process
 
+**chapter0102 基础**
+
+**chapter03 变量与数据类型**
+
+**chapter04 运算符**
+
 **chapter0506 控制语句 数组**
 
 **chapter07 类与对象 递归重载构造方法**
