@@ -1,11 +1,14 @@
-/**java文档注释
- *  @author  wty
- *  @version  0.0
+/**
+ * java文档注释
+ *
+ * @author wty
+ * @version 0.0
  * 可以用cmd javadoc解析生成网页文件
  * 示例：javadoc -d 文件位置文件夹名（想存放的地方） -x -y 源文件名
  */
 //https://www.cnblogs.com/boring09/p/4274893.html 关于文档注释
 package chapter0102;
+
 //表示hello是一个类   是一个public公有的类
 //{}表示类的开始结束
 public class hello {
@@ -16,9 +19,8 @@ public class hello {
     }
 }
 
-class dog{
-    public static void main(String[] args)
-    {
+class dog {
+    public static void main(String[] args) {
         System.out.println("hello dog!");
     }
 }
@@ -39,12 +41,10 @@ class dog{
 //主方法也可放在别的类中运行
 //源文件的名称必须是public类的名称
 //一个类中只能有一个主方法
-//;结束
-
 
 //java转义字符 和c差不多
 //但\r （回到某一行的开头）  会覆盖原来的内容   \b也是（退格）
-class a{
+class a {
     public static void main(String[] args) {
         System.out.println("转义字ddd符\ndggg\r555\b");//
     }

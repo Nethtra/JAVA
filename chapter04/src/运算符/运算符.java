@@ -24,7 +24,7 @@ public class 运算符 {
             //后自增  首先i的值被赋给临时变量temp   然后i自增    最后temp的值被赋给i  所以结果还是0，五个0
             //             temp=i                i=i+1            i=temp
             // 如果是i++;   这样的话就没有最后一步 i=temp 正常输出12345   其实就是少了第三步
-            System.out.println("i =" + i);
+            System.out.println("i = " + i);
         }
 
         System.out.println("==================================================================");
@@ -33,21 +33,28 @@ public class 运算符 {
         for (int j = 0; j < 5; j++) {
             k = ++k;  //首先k自增    然后k的值被赋给temp    最后temp的值被赋给k  这个正常输出12345
             //             k=k+1          temp=k                      k=temp
-            // ++k;    这个也是正常
-            System.out.println("i =" + k);
+            System.out.println("i = " + k);
         }
-
+        System.out.println("==================================================================");
+        //如果最后没有赋值操作的话，都是一样的
+        int j = 0;
+        for (int m = 0; m < 5; m++) {
+            j++;
+            ++j;
+            System.out.println("j = " + j);
+        }
 
         //666         这两段码拿到c上结果相同   都是12345  说明c没有中间变量缓存机制
 
         //关系运算符   注意==别写错了
         //所有关系运算符的结果都是boolean类型
-        //和c一样 多了一个instanceof   检查是否是类的对象
+        //instanceof   检查左边的对象是否是右边类的实例
         int a = 1209;
         int b = 23490;
-        System.out.println(a > b);
+        Integer c=20;
         boolean flag = a <= b;
         System.out.println(flag);
+        System.out.println(c instanceof Integer);
     }
 }
 
@@ -92,14 +99,14 @@ class AssignOperator {
         //复合赋值运算符会自动进行强制类型转换  具体看下例
 
         byte b = 10;
-        //b=b+2;  //这样就不行
         b += 2;//相当于  b=(byte) (b+2)
+        //b=b+2;  //这样就不行
         System.out.println(b);
     }
 }
 
 
-class ternaryoperator {
+class ternaryOperator {
     public static void main(String[] args) {
         //三元运算符 和c一样  实际上是个if语句
         //条件？表达式1：表达式2

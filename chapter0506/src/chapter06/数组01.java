@@ -21,7 +21,8 @@ class array {
         //数据类型 数组名[]=new 数据类型[元素个数];动态初始化元素个数可以是变量
         //还有一种方式 先 数据类型 数组名[];
         //再            数组名=new 数据类型[元素个数]；
-        double score[] = new double[4];//double score[];这里只是声明
+        double score[] = new double[4];
+        //double score[];这里只是声明
         //score=new double[4] 这里才分配空间
         System.out.println(score);//[D@1b6d3586  这样输出的是申请的内存空间的值
         Scanner myscanner = new Scanner(System.in);
@@ -31,15 +32,12 @@ class array {
         for (int i = 0; i < score.length; i++) {
             System.out.println(score[i]);
         }
-        char a = 'a' + 1;//这样是没问题的
-        System.out.println(a);//b
-        int i = 6;
-        // char b='b'+i;//但是如果加了个变量的话会报错 需要强转
+
     }
 }
 //注意点
-//数组可以是任何数据类型  包括基本数据类型和引用数据类型  比如有String abc[]={ }
-//java数组创建后有默认值 基本数据类型是0  boolean是false float和double是0.0 char是空字符 string是null    好像只适用于动态初始化 静态初始化必须要赋初值
+//数组中可以是任何数据类型  包括基本数据类型和引用数据类型  比如有String abc[]={ }
+//java数组创建后有默认值 基本数据类型是0  boolean是false float和double是0.0 char是空字符 string是null   只适用于动态初始化 静态初始化必须要赋初值
 //而c语言规定，普通数组没有赋初值，默认的数组元素值是随机数，不是0。如果在定义数组时，数据类型前面加上关键字static，数组变成了静态数组；或者把数组定义在函数的外面，成为全局变量数组，这时数组元素的值自动赋值为0。
 //数组是引用类型 数组数据是对象
 //前面的括号不能加个数
@@ -47,9 +45,8 @@ class array {
 
 //数组赋值机制
 //java中的数组可以相互赋值 但是
-//ui
 //基本数据类型赋值 是值拷贝
-//引用数据类型赋值是 地址拷贝即传递地址  此外数组名指向的也是地址  和函数调用差不多 给新数组改了元素会影响原数组
+//引用数据类型赋值是 地址拷贝即传递地址  此外数组名指向的也是地址  给新数组改了元素会影响原数组
 class assignment {
 
     public static void main(String[] args) {
@@ -59,7 +56,7 @@ class assignment {
         arr2[0] = 10;
         System.out.println(arr1[0]);
 
-    }//但这里肯定不会被释放
+    }
 }
 //如果是arr1[]={1,2,3}
 //     arr2[]={3,2,1}
@@ -106,12 +103,11 @@ class add {
                 }
             }
 
-        }
-        while (true);//构建死循环
-
+        } while (true);//构建死循环
+        System.out.println("新数组如下");
         for (int i = 0; i < arr.length; i++)//输出
         {
-            System.out.println(arr[i]);
+            System.out.print(arr[i] + " ");
         }
     }
 }
@@ -133,8 +129,7 @@ class add {
 //动态初始化2  也是先声明再new
 //动态初始化3  每个一维数组元素个数不同  列数可省略
 //静态初始化   也有个例外比如  String str[]=new String[]{"a","b","c"};这是对的但是右边括号里不能加3也是
-//这里要注意Java的二维数组每个一维数组元素个数可以不同 可以在new的时候控制
-//行数一定要指明
+//这里要注意Java的二维数组每个一维数组元素个数可以不同 可以在new的时候控制 行数一定要指明
 //下面是展示动态初始化3的一个例子
 class TwoDimensionalArray {
     public static void main(String[] args) {
