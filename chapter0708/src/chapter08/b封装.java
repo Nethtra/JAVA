@@ -7,7 +7,7 @@ package chapter08;
 
 //实现步骤
 //将属性private化
-//提供一个public set方法用于对属性判断并复制
+//提供一个public set方法用于对属性判断并赋值
 //提供一个public get方法用于获取属性的值
 
 //通过一道题来理解封装的作用

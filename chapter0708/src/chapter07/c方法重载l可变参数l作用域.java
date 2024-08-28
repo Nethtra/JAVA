@@ -34,11 +34,11 @@ class VariadicParameters {
     //              int...表示方法接收可变参数
     //                 然后nums可以看为一个数组 存的都是int 个数在调用时看传过来多少就是多少
     public int sum(int... nums) {
-        int z = 0;
+        int sum = 0;
         for (int i = 0; i < nums.length; i++) {
-            z += nums[i];
+            sum += nums[i];
         }
-        return z;
+        return sum;
     }
     //例如这个程序就比直接重载方便很多
 }

@@ -52,8 +52,8 @@ class Test{
         Test t1=new Test();//又new了一个新对象
         t1.count2();
         t1.count2();
+        }
     }
-}
 //总结
 //类与对象定义
 //对象在内存中存在形式
