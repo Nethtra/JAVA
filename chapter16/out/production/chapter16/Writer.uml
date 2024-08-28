@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>java.io.Writer</OriginalElement>
+  <nodes>
+    <node x="75.53571428571428" y="264.0">java.io.PrintWriter</node>
+    <node x="0.0" y="88.0">java.lang.Appendable</node>
+    <node x="354.0" y="88.0">java.io.Closeable</node>
+    <node x="200.0" y="176.0">java.io.Writer</node>
+    <node x="269.5357142857143" y="264.0">java.io.FileWriter</node>
+    <node x="331.0" y="0.0">java.lang.AutoCloseable</node>
+    <node x="183.0" y="88.0">java.io.Flushable</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="java.io.Writer" target="java.io.Closeable">
+      <point x="39.0" y="-19.0" />
+      <point x="297.5" y="151.0" />
+      <point x="429.5" y="151.0" />
+      <point x="0.0" y="19.0" />
+    </edge>
+    <edge source="java.io.PrintWriter" target="java.io.Writer">
+      <point x="0.0" y="-19.0" />
+      <point x="162.53571428571428" y="239.0" />
+      <point x="229.25" y="239.0" />
+      <point x="-29.25" y="19.0" />
+    </edge>
+    <edge source="java.io.Writer" target="java.io.Flushable">
+      <point x="0.0" y="-19.0" />
+      <point x="0.0" y="19.0" />
+    </edge>
+    <edge source="java.io.FileWriter" target="java.io.Writer">
+      <point x="0.0" y="-19.0" />
+      <point x="351.0357142857143" y="239.0" />
+      <point x="287.75" y="239.0" />
+      <point x="29.25" y="19.0" />
+    </edge>
+    <edge source="java.io.Closeable" target="java.lang.AutoCloseable">
+      <point x="0.0" y="-19.0" />
+      <point x="0.0" y="19.0" />
+    </edge>
+    <edge source="java.io.Writer" target="java.lang.Appendable">
+      <point x="-39.0" y="-19.0" />
+      <point x="219.5" y="151.0" />
+      <point x="81.5" y="151.0" />
+      <point x="0.0" y="19.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="264.0" y="151.0" />
+  <SelectedNodes>
+    <node>java.io.Writer</node>
+  </SelectedNodes>
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>java.util.Map</OriginalElement>
+  <nodes>
+    <node x="616.25" y="490.0">java.util.LinkedHashMap</node>
+    <node x="16.5" y="502.0">java.util.Properties</node>
+    <node x="231.99999999999994" y="112.0">java.util.TreeMap</node>
+    <node x="469.24999999999994" y="0.0">java.util.Map</node>
+    <node x="531.0" y="88.0">java.util.HashMap</node>
+    <node x="0.0" y="88.0">java.util.Hashtable</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="java.util.HashMap" target="java.util.Map">
+      <point x="0.0" y="-176.0" />
+      <point x="650.0" y="68.0" />
+      <point x="521.125" y="68.0" />
+      <point x="10.375" y="19.0" />
+    </edge>
+    <edge source="java.util.Hashtable" target="java.util.Map">
+      <point x="0.0" y="-176.0" />
+      <point x="106.0" y="58.0" />
+      <point x="479.62499999999994" y="58.0" />
+      <point x="-31.125" y="19.0" />
+    </edge>
+    <edge source="java.util.Properties" target="java.util.Hashtable">
+      <point x="0.0" y="-56.0" />
+      <point x="0.0" y="176.0" />
+    </edge>
+    <edge source="java.util.TreeMap" target="java.util.Map">
+      <point x="0.0" y="-152.0" />
+      <point x="371.49999999999994" y="68.0" />
+      <point x="500.37499999999994" y="68.0" />
+      <point x="-10.375" y="19.0" />
+    </edge>
+    <edge source="java.util.LinkedHashMap" target="java.util.HashMap">
+      <point x="-49.25" y="-68.0" />
+      <point x="665.5" y="465.0" />
+      <point x="650.0" y="465.0" />
+      <point x="0.0" y="176.0" />
+    </edge>
+    <edge source="java.util.LinkedHashMap" target="java.util.Map">
+      <point x="49.25" y="-68.0" />
+      <point x="764.0" y="465.0" />
+      <point x="779.5" y="465.0" />
+      <point x="779.5" y="58.0" />
+      <point x="541.875" y="58.0" />
+      <point x="31.125" y="19.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.8235294117647058" x="407.0" y="313.0" />
+  <SelectedNodes>
+    <node>java.util.Map</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Fields</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

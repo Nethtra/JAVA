@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>java.io.FileReader</OriginalElement>
+  <nodes>
+    <node x="86.25" y="88.0">java.io.Closeable</node>
+    <node x="257.25" y="88.0">java.lang.Readable</node>
+    <node x="40.0" y="352.0">java.io.FileReader</node>
+    <node x="186.0" y="176.0">java.io.Reader</node>
+    <node x="263.0" y="264.0">java.io.BufferedReader</node>
+    <node x="0.0" y="264.0">java.io.InputStreamReader</node>
+    <node x="63.25" y="0.0">java.lang.AutoCloseable</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="java.io.Reader" target="java.io.Closeable">
+      <point x="-29.25" y="-19.0" />
+      <point x="215.25" y="151.0" />
+      <point x="161.75" y="151.0" />
+      <point x="0.0" y="19.0" />
+    </edge>
+    <edge source="java.io.Reader" target="java.lang.Readable">
+      <point x="29.25" y="-19.0" />
+      <point x="273.75" y="151.0" />
+      <point x="327.25" y="151.0" />
+      <point x="0.0" y="19.0" />
+    </edge>
+    <edge source="java.io.FileReader" target="java.io.InputStreamReader">
+      <point x="0.0" y="-19.0" />
+      <point x="0.0" y="19.0" />
+    </edge>
+    <edge source="java.io.InputStreamReader" target="java.io.Reader">
+      <point x="0.0" y="-19.0" />
+      <point x="121.5" y="239.0" />
+      <point x="215.25" y="239.0" />
+      <point x="-29.25" y="19.0" />
+    </edge>
+    <edge source="java.io.Closeable" target="java.lang.AutoCloseable">
+      <point x="0.0" y="-19.0" />
+      <point x="0.0" y="19.0" />
+    </edge>
+    <edge source="java.io.BufferedReader" target="java.io.Reader">
+      <point x="0.0" y="-19.0" />
+      <point x="367.5" y="239.0" />
+      <point x="273.75" y="239.0" />
+      <point x="29.25" y="19.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="236.0" y="195.0" />
+  <SelectedNodes>
+    <node>java.io.FileReader</node>
+  </SelectedNodes>
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
