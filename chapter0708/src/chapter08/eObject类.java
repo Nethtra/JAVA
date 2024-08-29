@@ -3,13 +3,14 @@ package chapter08;
 //java所有的类都是Object类的子类（都继承Object）
 //Object类是所有类的父类 含有很多方法
 //==与equals对比
-//==是一个比较运算符既可以判断基本类型 也可以判断引用类型
+//==是一个比较运算符，既可以判断基本类型 也可以判断引用类型
 //判断基本类型比较值是否相等
 //判断引用类型比较地址是否相同
 
 //equals方法  是Object类中的方法 只能判断引用类型 默认比较地址是否相等(object中)
 //但是Object的子类中往往重写了该方法 比如String类中是比较的就是字符串的内容是否一样 还有Integer是判断值是否一样
 //ctrl b查看源码
+
 //这是Object类的equals
 //public boolean equals(Object obj) {
 //        return (this == obj);

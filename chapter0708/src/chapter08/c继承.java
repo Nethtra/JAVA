@@ -40,6 +40,7 @@ package chapter08;
 class GrandPa {
     String name = "爷爷";
     String hobby = "旅游";
+    int age = 70;
 }
 
 class Father extends GrandPa {
@@ -50,6 +51,7 @@ class Father extends GrandPa {
 class Son extends Father {
     String name = "儿子";
     private int age = 12;
+
 }
 
 //这里儿子类继承爸爸类再继承爷爷类
@@ -62,7 +64,7 @@ class Test {
         //这里故意继承的类都写name new对象时不会有影响 都会在堆空间完成初始化
         //然后我们来看调用
         System.out.println(son.name);//如果不是私有的话.name会从子类开始往上找
-        //System.out.println(son.age); 当遇到private会阻塞 即使父类还有.age
+        //System.out.println(son.age); //当遇到private会阻塞 即使父类还有.age
         System.out.println(son.hobby);
         //至于son怎么访问爹和爷爷的name 我也不知道 反正就是只能访到一层
     }
@@ -110,7 +112,7 @@ class Test1 {
 }
 
 
-//super关键字 代表父类的引用 用于访问父类的属性 方法 构造器
+//super关键字 代表父类的对象 用于访问父类的属性 方法 构造器
 //和this差不多 只不过this是本类 super是在子类访问父类
 //访问父类属性和方法 但不能访问private属性和方法
 //访问父类构造器 只能放在子类构造器第一句且只能有一句super
@@ -241,8 +243,8 @@ class Student extends Person {
 
 class Test2 {
     public static void main(String[] args) {
-        Person 东雪莲 = new Person("东雪莲", 40);
-        System.out.println(东雪莲.say());
+        Person 张三 = new Person("张三", 40);
+        System.out.println(张三.say());
         Student 丁真 = new Student("丁真", 21, 15, 100);
         System.out.println(丁真.say());
     }
