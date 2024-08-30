@@ -27,7 +27,7 @@ class Test1 {
         Arrays.sort(arr);
         System.out.println(Arrays.toString(arr));
         //但是 这只是普通的排序
-        //还可以传入接口来实现 定制排序 Comparator接口  比较器
+        //还可以传入实现了Comparator接口的类来实现定制排序  比较器
         //注意到后面的参数是实现了Comparator的匿名内部类 接口里实现了compare方法
         Arrays.sort(arr, new Comparator() {
             @Override
@@ -54,7 +54,7 @@ class Test2 {
                 //先向下转型
                 Integer i1 = (Integer) o1;
                 Integer i2 = (Integer) o2;
-                return i2 - i1;//这里决定了排的顺序
+                return i1 - i2;//这里决定了排的顺序
             }
         });
         System.out.println(Arrays.toString(arr));
@@ -94,7 +94,7 @@ class Test3 {
         //2copyOf 数组元素复制 从一个数组拷贝元素到另一个数组
         Integer[] arr1 = Arrays.copyOf(arr, arr.length);//前面是源 后面是要的长度
         System.out.println(Arrays.toString(arr1));
-        //注意如果长度大于原数组会在后面加null 长度<0会抛异常
+        //注意如果新数组长度大于原数组会在后面加null
 
         //3fill 数组填充 把所有元素都改为指定元素
         Arrays.fill(arr1, 10);//前面是数组 后面是要填充为的内容

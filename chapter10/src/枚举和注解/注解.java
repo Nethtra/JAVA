@@ -6,7 +6,6 @@ package 枚举和注解;
  */
 //注解Annotation
 //注释和注解不同的是注解可以被编译运行
-//使用注解时要在前加@ 并把该注解当为修饰符使用
 //@Override
 //只能修饰方法
 //表示重写父类方法 但也可以不写  相当于一种规范
@@ -16,8 +15,9 @@ package 枚举和注解;
 //作用时做到新旧版本的过度
 //@SuppressWarnings
 //忽略警告
-//我觉得只用记住@SuppressWarnings({"all"}) 无视警告，继续访问！
+//我觉得只用记住@SuppressWarnings({"all"})
 //范围和Deprecated差不多 就是放在谁上边就忽略哪部分警告
+
 
 //元注解 注解的注解（了解 看p436）
 //@interface表示注解类

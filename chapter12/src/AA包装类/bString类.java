@@ -6,7 +6,7 @@ import java.util.Scanner;
  * @author 王天一
  * @version 1.0
  */
-//对象保存字符串常量
+//对象保存字符串常量 不可变字符序列
 //字符串中的字符采用unicode编码 一个字符（包括汉字）占两字节
 //构造器重载了很多
 //String是final类
@@ -62,10 +62,10 @@ class Test8 {
     String str = new String("hsp");//在ex这个对象里呢 又new了一个str引用指向value再指向常量池中的hsp
     final char[] ch = {'j', 'v', 'a', 'v'};//还是在这个对象里 又一个新的引用ch 指向堆中的j a v a数组
 
-    public void change(String str, char ch[]) {//原来形参str指向value
+    public void change(String str, char ch[]) {//注意形参
         str = "java";//这里str是形参 因为常量池中没有java所以会在常量池新开一块再指向
-        //现在的str指向的是常量池
-        ch[0] = 'h';//这个直接改了堆里的j
+        //现在的str指向的是常量池 但是形参 所以并没有改变ex中属性的内容
+        ch[0] = 'h';//这个直接改变了堆里的j
     }
 
     public static void main(String[] args) {//从这里开始
@@ -132,10 +132,12 @@ class Test9 {
 }
 
 //StringBuffer类
+//可变字符序列
 //是一个final类
 //直接父类是 AbstractStringBuilder 再往上就是Object
 //实现了接口Serializable 对象可以串行化（对象可以网络传输 可以保存到文件）
-//与String不同 StringBuffer中是char[] value少了final 字符串的内容是直接放在堆里value中的
+//与String不同 StringBuffer中是private char[] value少了final 即可以改变value指向的地址
+//且字符串的内容是直接放在堆里value中的
 //效率要高于String因为在改动字符串内容时可以直接改在value里 而String因为value final的原因
 //每次都要 先在常量池中新创建字符串 然后改对象引用的指向
 
@@ -169,7 +171,7 @@ class Test12 {
         String s1 = "name";
         //1new的时候用构造器 就是上面的2
         StringBuffer buffer1 = new StringBuffer(s1);
-        //2使用append方法 注意这个方法在StringBuffer里还不是静态的 和之前一样s1是没有变的 要用引用接收
+        //2使用append方法 注意这个方法在StringBuffer里不是静态的 和之前一样s1是没有变的 要用引用接收
         StringBuffer buffer2 = new StringBuffer();
         buffer2 = buffer2.append(s1);
 
@@ -217,7 +219,7 @@ class Test14 {
         while (true) {
             s = scanner.next();//接收字符串
             try {
-                Integer.parseInt(s);
+                Double.parseDouble(s);
                 break;
             } catch (NumberFormatException e) {//这里是输入了不是数字的处理情况
                 //e.printStackTrace();

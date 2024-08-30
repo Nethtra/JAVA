@@ -8,7 +8,7 @@ import java.util.Scanner;
  * @version 1.0
  */
 //Exception
-//异常不是致命错误error
+//异常不是error
 //分为编译时异常和运行时异常 运行时异常编译器无法检查可以不处理 编译时异常必须处理
 //Java有异常处理机制 使程序出现异常时仍能继续运行
 
@@ -16,16 +16,15 @@ import java.util.Scanner;
 //看体系图 右键找diagram
 
 //常见运行时异常
-//NullPointerException空指针异常 当程序试图在需要对象的地方使用null时就会抛出该异常
+//空指针异常NullPointerException 当程序试图在需要对象的地方使用null时就会抛出该异常
 //数学运算异常ArithmeticException 当出现异常的运算条件时抛出 如除0
-//数组索引越界异常ArrayIndexOutofBoundsException 非法索引
+//数组索引越界异常ArrayIndexOutOfBoundsException 非法索引
 //类型转换异常ClassCastException当试图将对象强制转换为不是实例的子类时（向下转型）
 //数字格式不正确NumberFormatException当程序试图将字符串转换成一种数值类型但不能转换时
 
 //异常处理
 //两种方式
-//try catch finally 捕获异常自行处理
-//快捷键ctrl alt t 使用try catch
+//1.try catch finally 捕获异常自行处理    快捷键ctrl alt t 使用try catch
 //try{可能有异常的部分
 // 当存在异常时系统将异常封装成Exception对象e并传递给catch
 // 得到对象e后程序员在catch自行处理
@@ -33,9 +32,8 @@ import java.util.Scanner;
 // 对异常的处理
 // 如果没有异常发生则catch代码块不执行
 // }finally{
+// 不管有没有异常都会执行finally  通常将释放资源等的代码放在finally
 // 可以没有finally
-// 不管有没有异常都会执行
-// 如果希望不管有没有异常都执行可以用finally 通常将释放资源等的代码放在finally
 // }
 //注意点
 //首先异常被捕获后 catch后面的就能继续运行 否则会崩
@@ -43,7 +41,7 @@ import java.util.Scanner;
 //如果try中可能有多个异常可以用多个catch分别捕获 但子类异常要写在前(子类的顺序无所谓)(这里要先去看那个图 知道Exception是所有异常的父类)
 //还有一种使用方法是try finally 相当于没有捕获 程序会直接崩 但是还会执行finally 可以用来完成一些操作
 class Person {
-    String name = "jacki";
+    String name = "jacky";
 }
 
 class Error_ {
@@ -55,15 +53,16 @@ class Error_ {
             int a = 10;
             int b = 0;
             System.out.println(a / b);
-            System.out.println("你看我还执行吗");
+            System.out.println("发生异常之后的不执行");
         } catch (NullPointerException e) {
             System.out.println(e.getMessage());//输出异常信息
         } catch (ArithmeticException e) {
             System.out.println(e.getMessage());
         } finally {
-            System.out.println("finally继续执行");
+            System.out.println("finally永远执行");
         }
-        System.out.println("执行吗");
+        System.out.println("try catch finally之后的正常执行");
+
     }
 }
 
@@ -79,6 +78,7 @@ class Exception1 {
             else
                 return ++i;
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             return ++i;//执行到这里时能看出来中间变量temp是2
             // 因为finally无论如何都会执行所以程序会先等着不return
             //所以最后return回去的还是temp2
@@ -126,20 +126,20 @@ class Exception21 {
     }
 }
 
-//如果方法中可能出现某种异常但不确定如何处理 可以显式地抛出 交给方法的调用者处理
+
+//2.throws如果方法中可能出现某种异常但不确定如何处理 可以显式地抛出 交给方法的调用者处理
 //throws抛出异常给调用的上一级 顶级是JVM
-//jvm处理异常的方式是输出异常信息detailMessage再终止程序
+//语法:throws 异常类型 写在方法的（）后面
+//jvm处理异常的方式是输出异常信息即detailMessage再终止程序
 //如果存在运行异常没有catch或throws处理会默认throw抛出
 //throws后可以接异常列表 也可以是他们的父类
-//语法 写在方法的（）后面 throws 异常类型
 //当子类重写父类的方法时规定子类重写的方法抛出的异常类型和父类抛出的一致或者是他的子类
-//throw后交给上一调用者处理 上一级可以trycatch或者throw 如果抛的是runtimeexception则不会报//runtime异常有隐式处理
+//throws后交给上一调用者处理 上一级可以trycatch或者throw
 
 
-//自定义异常
+//3.throw自定义异常
 //程序员自己定义的异常类 继承Exception或者RuntimeException
-//如果继承Exception则属于编译异常
-//如果继承RuntimeException则属于运行时异常
+//如果继承Exception则属于编译异常,如果继承RuntimeException则属于运行时异常
 //一般定义为运行时异常
 //至于为什么做成运行时异常因为编译时异常必须得显式地处理
 //语法 throw关键字 看下面
@@ -176,8 +176,7 @@ class Test2 {//好好理解这道题
 //throw出的异常也可以被catch抓住
             int a = Integer.parseInt(args[0]);
             int b = Integer.parseInt(args[1]);
-
-            cal(a, b);
+            System.out.println(cal(a, b));
         } catch (NumberFormatException e) {
             System.out.println("命令行参数输入的不是数字！");
         } catch (ArithmeticException e) {
