@@ -14,7 +14,7 @@ import java.util.*;
 //Collection接口有两个重要的子接口 List Set 他们的实现子类都是单列集合
 //Map接口的实现子类是双列集合
 
-//我的理解 实现了Collection或者Map接口的类的对象就可以叫集合 集合里可以存其他不同类型的对象 还有很多操作对象的方法
+//我的理解 实现了List Set或者Map接口的类的对象就可以叫集合 集合里可以存其他不同类型的对象 还有很多操作对象的方法
 //先来看Collection接口常用方法 用实现子类ArrayList演示
 class Test1 {
     public static void main(String[] args) {

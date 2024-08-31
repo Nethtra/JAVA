@@ -22,7 +22,7 @@ class Test1 {
 
         //2
         //看源码还有个有参构造器 参数是毫秒long 返回一个距时间戳的时间
-        Date d2 = new Date(100000);
+        Date d2 = new Date(6000);
         System.out.println(d2);
 
         //3可以把一个格式化的String转换成Date
