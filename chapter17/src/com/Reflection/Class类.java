@@ -24,10 +24,10 @@ class Test4 {
         System.out.println(cls.getClass());//输出反射的运行类型 Class
         System.out.println(cls);//直接输出反射  会显示这是哪个类的反射 就是类路径
         System.out.println(cls.getPackage().getName());//得到包名
-        System.out.println(cls.getName());//得到类名
+        System.out.println(cls.getName());//得到反射的类名
         Object o = cls.newInstance();//通过反射创建对象实例
         System.out.println(o);//调用toString方法
-
+        System.out.println("==============================================");
         //通过反射获取属性   但是要传字段名进去
         Field field = cls.getField("name");
         System.out.println(field.get(o));//get传入对象实例得到属性
@@ -37,7 +37,7 @@ class Test4 {
         //得到所有字段的名字
         Field[] fields = cls.getFields();//返回的是一个数组
         for (Field f : fields) {//增强for
-            System.out.println(f.getName());
+            System.out.println(f.getName());//getName获取字段的名字
         }
     }
 }
@@ -51,14 +51,14 @@ class Test4 {
 class Test5 {
 
     public static void main(String[] args) throws ClassNotFoundException {
-        //1已知类的全路径 通过forName(是一个静态方法)
+        //1已知类的全路径 通过forName()(是一个静态方法)
         String classAllPath = "com.Reflection.Cat";
-        Class cls1 = Class.forName(classAllPath);//要传入类的全路径 一般是通过配置文件读取
+        Class cls1 = Class.forName(classAllPath);//要传入类的路径 一般是通过配置文件读取
         System.out.println(cls1);
-        //2 已知具体的类 类名.class 一般用于参数传递 例如反射要得到类的有参构造器 就需要数据类型的反射作为参数
+        //2 已知具体的类 类名.class 一般用于参数传递 例如要用反射得到类的有参构造器 就需要数据类型的反射作为参数
         Class cls2 = Cat.class;
         System.out.println(cls2);
-        //3已知类的实例 getClass  之前说的查看运行类型就是对象.getClass
+        //3已知类的对象实例  对象.getClass  之前说的查看运行类型就是对象.getClass
         //所以其实有了对象实例 就可以拿到反射 正好印证每一个对象实例都记得他是谁的反射 所以看运行类型的实质是直接看反射
         Cat cat = new Cat();
         Class cls3 = cat.getClass();
@@ -85,7 +85,7 @@ class Test5 {
     }
 }
 
-//那些类型有Class类对象
+//哪些类型有Class类对象
 //外部类 内部类
 //接口
 //数组

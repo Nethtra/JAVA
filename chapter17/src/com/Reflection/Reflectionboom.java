@@ -10,6 +10,8 @@ import java.lang.reflect.Method;
  * @version 1.0
  */
 //反射爆破
+
+
 //反射爆破使用私有构造器创建对象
 class Test6 {
     public static void main(String[] args) throws ClassNotFoundException, IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
@@ -17,9 +19,10 @@ class Test6 {
         Class<?> cls = Class.forName("com.Reflection.User");
         //之前通过newInstance创建对象实例  这个调用的是无参构造器
         Object o1 = cls.newInstance();
+        System.out.println(o1);
 
         //而如果想要调用有参构造器创建对象实例 需要先得到构造器对象 **getConstructor方法返回本类的public构造器对象**
-        Constructor<?> constructor = cls.getConstructor(String.class);//里面传入数据类型的类对象
+        Constructor<?> constructor = cls.getConstructor(String.class);//里面传入数据类型的反射
         //然后用构造器对象newInstance
         Object o2 = constructor.newInstance("jacob");
         System.out.println(o2);
@@ -34,6 +37,7 @@ class Test6 {
     }//所以反射机制可以爆破从而访问类的私有构造器 属性等
     //这也是反射的优点
 }
+
 
 //反射爆破操作属性
 class Test7 {

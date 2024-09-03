@@ -40,7 +40,7 @@ class Test1 {
     }
 }//不知道是不是包名不能是中文 一开始错了
 //反射机制借助Reflection api来获取类的内部信息
-//类加载完成后 堆中会产生一个Class类型的对象（一个类只有一个）这个对象包含了类的完整结构信息
+//类加载完成后，堆中会产生一个Class类型的对象（一个类只有一个）这个对象包含了类的完整结构信息
 //通过这个对象就可以得到类的结构   这个对象就叫做反射 比如这一句cls就是反射 Class cls=Class.forName(classfullpath);
 //Java程序运行阶段
 //编译时将源码编译成.class字节码文件   当Runtime 使用到类时（比如new对象或者使用Class.forName） 都会触发类加载
@@ -60,8 +60,7 @@ class Test1 {
 //所以Java反射机制可以
 //在运行时判断任一对象所属的类
 //在运行时构造任意类的对象
-//在运行时得到任意类的成员变量和方法
-//在运行时调用一个对象的成员变量和方法
+//在运行时得到并且调用任意类的成员变量和方法
 //生成动态代理
 
 
@@ -96,11 +95,11 @@ class Test2 {
         Constructor constructor1 = cls.getConstructor();
         System.out.println(constructor1);
         //有参
-        Constructor constructor2 = cls.getConstructor(String.class);//这里要传入的是String的反射即String的Calss对象
+        Constructor constructor2 = cls.getConstructor(String.class);//这里要传入的是String的反射即String的Class对象
         System.out.println(constructor2);
 
     }
-}//不知道是不是包名不能是中文 一开始错了
+}
 
 
 //反射的优缺点
