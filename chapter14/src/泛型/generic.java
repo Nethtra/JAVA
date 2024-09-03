@@ -161,15 +161,17 @@ class Student {
 //细节
 //在指定泛型的具体类型后 可以传入该类型或者其子类类型
 //关于泛型的写法   可以List<Integer> list=new ArrayList<>();即右边省略 而且编译器.var默认就是这么干的  要注意的是<>左右必须是同种类型
-//当类定义时有泛型但实例化时未指定具体类型时  默认指定为Object 这也是上一章讲集合说能放Obj的原因
+//当类定义时有泛型但实例化时未指定具体类型时  默认指定为Object  所以之前用增强for拿出来得用Object接收
 //而且所有集合的类定义都有泛型  所以我觉得集合的初衷就是想让你来指定这是个什么类型的集合 而不是可以放所有类型元素
-//所以这么下来 迭代器 entrySet什么的也有泛型 初衷也不是返回obj  而是要指定类型
+//所以这么下来 Iterator entrySet什么的也有泛型 初衷也不是返回obj  而是要指定类型
 //再讲一点 K V M这些其实叫通配符
 //<?>无界通配符            传入任意泛型类型
 //<? extends E>上界通配符  只能传入E或者E的子类
 //<? super E>下界通配符    只能传入E或者E的父类
 //这三个通配符主要是在参数传递时起作用  比如用来限制集合的类型 (List <? extends E> list)
 
+
+//比较器
 //例题
 //定义Employee类 包含private属性name sal birthday(MyDate类的对象)
 //MyDate类包含 year month day
@@ -292,7 +294,7 @@ class Test3 {
                 if (emp1.getName().compareTo(emp2.getName()) != 0)//比名字 如果名字不同时
                     return emp1.getName().compareTo(emp2.getName());
 
-                //这个Comparator其实叫外部比较器 即定义在类的外部 再新建一个类来实现这个方法
+                //这个Comparator其实叫外部比较器 即定义在类的外部 再新建一个类来实现这个方法 但这里使用了匿名内部类
                 //而下面是对生日的比较 显得冗余 我们可以用内部比较器使其更简洁
                 //就是现在已经拿到对象了 不需要再...
 
@@ -314,13 +316,16 @@ class Test3 {
         });
         System.out.println(employees);
     }
-}
+}//所以就是在MyDate类中使用了内部比较器，在调用sort方法时又使用了外部比较器
+//内部比较器Comparable：类要定义内部比较器需要该类先实现Comparable接口并指定泛型为该类，然后在内部重写compareTo方法
+//外部比较器Comparator：应新建class实现Comparator，在class中定义compare方法供外部调用比较。
+//外部比较器常与匿名内部类结合，即使用类似sort方法时新建匿名内部类时指定具体compare方法
 
-//刚才讲了类和接口的泛型 其实还有方法的泛型
+
+//刚才讲了类和接口的泛型 其实还有泛型方法
 //但要跟使用类的泛型的方法区分开
 //先讲一些定义
-//泛型方法可以定义在普通类和泛型类中
-//当泛型方法被调用时才会确定类型
+//泛型方法可以定义在普通类和泛型类中，当泛型方法被调用时才会确定类型
 //语法或者标志就是 访问修饰符后有<> 也是确定泛型方法和使用类的泛型的方法的标志
 //泛型方法可以和类的泛型搭配使用
 class A<E> {
@@ -343,7 +348,7 @@ class A<E> {
 //而泛型方法是调用一次就可以指定新的类型 更加灵活一点
 class Test4 {
     public static void main(String[] args) {
-        A<String> a = new A<>();
+        A<String> a = new A<>();//类的泛型一个对象只能指定一次
         a.method("调用方法随便指定类型", 1);
         a.method1("new对象时已经指定 只能传String");
         a.method2(1, "类的泛型", 1.1);

@@ -32,7 +32,7 @@ class Test1 {
         FileInputStream fis = null;
         try {//这里可能会抛异常 我们包起来
             //要注意文件里不能有中文 因为是按字节读取
-            fis = new FileInputStream("C:\\Users\\lenovo\\Documents\\IdeaProjects\\Javanotes\\chapter16\\a.txt");
+            fis = new FileInputStream("src\\a.txt");
             //使用read()方法  从该输入流读取一个字节的数据
             //返回读到的字符的int 如果达到文件的末尾返回 -1 。
             //注意这个read读一个自动进一位  和那个c一样 所以要用到z
@@ -62,13 +62,12 @@ class Test1 {
         //先创建输入流对象
         FileInputStream fis = null;
         try {//这里可能会抛异常 我们包起来
-            fis = new FileInputStream("C:\\Users\\lenovo\\Documents\\IdeaProjects\\Javanotes\\chapter16\\a.txt");
+            fis = new FileInputStream("src\\a.txt");
             byte[] arr = new byte[8];//读入的数组
             int z = 0;//记录成功读取的长度
             while ((z = fis.read(arr)) != -1)//read还会抛异常  这里直接把底下异常类型改为他们的父类
             {
-                System.out.println(new String(arr, 0, z));//看到第一次成功读了8个 第二次3个
-                //这个能读中文了不知道为什么
+                System.out.println(new String(arr, 0, z));//看到第一次成功读了8个字节 第二次因为有中文就不一样了
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -85,21 +84,22 @@ class Test1 {
     //FileOutPutStream 文件字节输出流
     @Test
     public void fileWrite() {
-        FileOutputStream fop = null;
+        FileOutputStream fos = null;
         try {
-            fop = new FileOutputStream("C:\\Users\\lenovo\\Documents\\IdeaProjects\\Javanotes\\chapter16\\a.txt", true);
+            fos = new FileOutputStream("src\\a.txt", true);
             //有三个重载write方法 如果没有该文件会创建 有则会覆盖 close之前可以一直写
             //如果不想覆盖想要追加继续写的话 可以new的时候 第二个参数(append)改成true
             //fop.write('h');写一个字节
             //fop.write(new String("hello world!").getBytes());//传入一个byte类型的数组
-            fop.write(new String("hello world!").getBytes(), 0, 5);
+            fos.write(new String("hello world!").getBytes(), 0, 5);
             //                                                  索引起始位置   字节数
+            System.out.println("写入成功");
 
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
             try {
-                fop.close();
+                fos.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -144,8 +144,9 @@ class Test1 {
         FileReader fr = null;
         try {
             //因为是按字符 就是char 所以现在文件里可以有中文
-            fr = new FileReader("C:\\Users\\lenovo\\Documents\\IdeaProjects\\Javanotes\\chapter16\\a.txt");
+            fr = new FileReader("src\\a.txt");
             //使用read()方法  每次读单个字符并返回int 如果达到文件的末尾返回 -1 。
+            //还有一个read(char[])就是和FileInputStream基本一样  一个byte一个char
             int z;
             while ((z = fr.read()) != -1)//read还会抛异常  这里直接把底下异常类型改为他们的父类
             {
@@ -162,7 +163,6 @@ class Test1 {
             }
         }
     }
-    //还有一个read(char[])就是和FileInputStream基本一样  一个byte一个char
 
 
 //    FileWriter 文件字符输出流 和FileOutputStream基本一样

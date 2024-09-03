@@ -17,7 +17,7 @@ import java.util.Objects;
 //
 //来讲HashSet
 //HashSet的底层是HashMap HashMap的底层是数组＋链表＋红黑树
-//所谓数组+链表 就是HashMap$Node类型的数组中（通常叫table）每一个索引位置的Node对象都可以再链接下去 当table扩展到一定程度时 就会产生红黑树
+//所谓数组+链表+红黑树 就是HashMap$Node类型的数组中（通常叫table）每一个索引位置的Node对象都可以再链接下去 当table扩展到一定程度时 就会产生红黑树
 //我们来先模拟一下HashSet的底层（其实就是HashMap）
 class Node1 {//先定义一下节点类型
     Object item;
@@ -47,10 +47,10 @@ class Test10 {
 //这也是为什么HashSet中不能有相同元素的原因
 //在Java8里如果一条链表的节点达到TREEIFY_THRESHOLD（默认为8）且table大小达到64 则table会被树化
 //扩容resize()
-//第一次添加元素时table会扩容到16     临界值（threshold）为16*加载因子（loadFactor）=12
+//第一次添加元素时table会扩容到16  临界值（threshold）为16*加载因子（loadFactor）=12
 //即如果table使用到了12就会扩容到16*2=32 新的临界值为24
-//关于扩容 这个临界值是size的临界值 而size在每添加一个Node就会++ 所以并不是要占满12个索引再括 而是添加了12个Node就括 即使他们在一个索引的链表上
-//还有就是一个链表长度到了8再往这个链表加的时候会调用树化方法 而树化方法上来就是判断到没到64 这样如果没到64 即使没到现在的临界 也会先扩容
+//关于扩容：这个临界值是size的临界值即节点的数量，而size在每添加一个Node就会++ 所以并不是要占满12个索引再括 而是添加了12个Node就括 即使他们在一个索引的链表上
+//还有就是上面说的一个链表长度到了8再往这个链表加的时候会调用树化方法 而树化方法上来就是判断table到没到64,如果没到64,即使没到现在的临界也会先扩容table到64，这样才能完成树化
 //还有就是注意扩容的时候计算的hash值没有变化，但是因为table长度变了，所以计算的索引也会变化
 //这源码太他妈抽象了
 //p522讲的是添加的源码523我不知道讲的是什么524验证了添加扩容和树化525讲了扩容的条件
@@ -62,7 +62,7 @@ class Test10 {
 class Employee {
     private String name;
     private double sal;
-    private MyDate birthday;
+    private MyDate birthday;//birthday是MyDate类型
 
     public Employee(String name, double sal, MyDate birthday) {
         this.name = name;
@@ -95,7 +95,8 @@ class Employee {
     }
 
     //当HashSet添加元素时会调用对象所在类的HashCode来算哈希值并转换成索引值用来判断索引位置 会调用对象所在类的equals来判断是否为同一个元素决定是否添加
-    //所以我们判定为同一人时 既要返回相同的哈希值即索引位置一样  又要让equals确定为同一元素 就要重写这两个方法
+    //当使用自定义类时，也要满足Set不能添加重复元素的条件
+    //所以我们判定为同一人时 既要返回相同的哈希值即索引位置一样  又要让equals确定为同一元素 就要在自定义类中重写这两个方法
     //快捷键alt insert重写 选择要判断的属性
     @Override
     public boolean equals(Object o) {
@@ -187,20 +188,20 @@ class MyDate {
 class Test11 {
     public static void main(String[] args) {
         HashSet hs = new HashSet();
-        hs.add(new Employee("冬雪莲", 9000, new MyDate(1945, 8, 10)));
-        hs.add(new Employee("默不作声", 0, new MyDate(2023, 2, 6)));
-        hs.add(new Employee("冬雪莲", 18, new MyDate(1945, 8, 10)));
-        System.out.println(hs);//看到效果就不重复了
+        hs.add(new Employee("丁真", 9000, new MyDate(1945, 8, 10)));
+        hs.add(new Employee("张三", 0, new MyDate(2023, 2, 6)));
+        hs.add(new Employee("丁真", 18, new MyDate(1945, 8, 10)));
+        System.out.println(hs);//看到效果就不会被重复添加
     }
 }
-//这么看来如果套了好几个对象的话 所有类都得重写HashCode和equals
+//这么看来如果套了好几个类的话 所有类都得重写HashCode和equals
 
 
 //LinkedHashSet
 //是HashSet的子类
 //底层为LinkedHashMap（HashMap的子类） 底层维护了数组＋双向链表
 //不能添加重复元素
-//添加和取出顺序相同 取出时有序 但添加的时候还是要根据hash值算索引再添加 只不过每一次添加就会把节点链接起来 所以取出时有序
+//添加和取出顺序相同即有序 但添加的时候还是要根据hash值算索引再添加 只不过每一次添加就会把节点链接起来 所以取出时有序
 //其实添加元素是用的还是 HashMap的方法
 //但有几点不同  LinkedHashMap底层维护的table是HashMap$Node[]类型的
 //但是存放的节点是 LinkedHashMap$Entry类型的

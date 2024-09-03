@@ -37,7 +37,7 @@ class Test1 {
         //6clear清空集合元素
         list.clear();
         System.out.println(list);
-        //7addAll添加多个元素 注意参数要传入一个集合 看例子
+        //7addAll为集合添加多个元素 参数要传入另一个集合
         List list1 = new ArrayList();
         list1.add("你好");
         list1.add("世界");
@@ -52,7 +52,7 @@ class Test1 {
     }
 }
 
-//当想要遍历集合时 就没法用for了 引出一个叫迭代器的东西 专门用来遍历集合
+//当想要遍历集合时 就没法用普通for*了 引出一个叫迭代器的东西 专门用来遍历集合
 //实现了Iterator接口的对象称为迭代器（Iterator是一个接口）  用来遍历Collection集合中的元素
 //而Collection接口中有（实现接口的也有）一个iterator方法 会返回一个迭代器对象
 class Book {//自定义个Book类
@@ -109,9 +109,8 @@ class Test2 {
     }
 }
 
-//当然也不是只能用迭代器
-//可以用增强for  但只能用于遍历数组或者集合
-//注意增强for底层仍然调用的是迭代器
+//还可以用增强for  增强for只能用于遍历数组或者集合
+//增强for底层仍然调用的是迭代器
 class Test3 {
     public static void main(String[] args) {
         Collection col = new ArrayList();
@@ -119,10 +118,18 @@ class Test3 {
         col.add(new Book("颜如玉", "100.0"));
         col.add(new Book("黄金屋", "66.9"));
         //上面都是复制的
+        //增强for遍历集合
         for (Object o : col) {//快捷键I  因为不确定集合中的元素类型 所以用Object接收
             System.out.println(o);
         }
-
+        //普通for和get方法遍历List集合 需要先把col向下转型成List或者ArrayList才能使用
+        //也就是说 使用父接口的引用也不能调到实现了子接口的特有方法的类的特有方法
+        //所以只有当编译类型为List或者其子类时，才能使用普通for加get方法来遍历
+        for (int i = 0; i < col.size(); i++) {
+            List ary = (List) col;
+            System.out.println(ary.get(i));
+        }
+        //增强for遍历数组
         int[] arr = {1, 2, 3, 4, 5, 7};
         for (int i : arr) {
             System.out.println(i);
@@ -130,13 +137,13 @@ class Test3 {
         //相当于把：后的数组或集合中的元素扔出来放到前面的引用或变量接收 然后在for里输出
     }
 }
-//因为List有索引 所以实现类都可以用三种遍历方式
 //Collection的实现类都能用迭代器和增强for
+//因为List有索引而且还有一个get方法 注意Collection中没有get方法 所以实现类都可以用三种遍历方式
 
-//List接口特点和一些方法
+//List集合特点和一些方法
 //注意Collection有List和Set两个子接口 单独讲List是因为要与Set区分开来
 //特点
-//1List集合中元素添加和输出顺序一致 可以重复
+//1List集合中元素添加和输出顺序一致 可以添加null 可以重复
 //2List集合支持索引 即get方法
 class Test4 {//演示 以ArrayList
 
@@ -172,7 +179,7 @@ class Test5 {
     }
 }
 
-//这里要注意当编译类型是List时可以用普通for来遍历集合 但是编译类型为Collection时就不行 Collection没有get方法
+//这里要注意当编译类型是List或者List的实现类时才能使用get方法，才可以用普通for来遍历集合， 但是编译类型为Collection时就不行 Collection没有get方法
 class Test6 {
     public static void main(String[] args) {
         List list = new ArrayList();
@@ -243,8 +250,7 @@ class Test7 {
 }
 
 //关于ArrayList
-//可以加入null
-//基本等同于Vector  ArrayList线程不安全但效率高 Vector线程安全但效率低
+//基本等同于Vector  ArrayList线程不安全但效率高  Vector线程安全但效率低
 //ArrayList是由数组来实现数据存储的 类中维护了一个transient Object[] elementData数组
 //当创建对象时如果调用无参构造器 则数组初始容量为0 当add时会扩容到10 之后如果再需要扩容 会扩容为当前容量的1.5倍
 //当使用指定大小的有参构造器时 初始化时会括为指定的容量 以后需要扩容时会直接扩容为当前容量的1.5倍
@@ -283,18 +289,19 @@ class Node {
 class Test8 {
     public static void main(String[] args) {
         //先建几个节点
-        Node niko = new Node("Niko");
-        Node roman = new Node("Roman");
-        Node vlad = new Node("vlad");
+        Node one = new Node("First");
+        Node two = new Node("Second");
+        Node three = new Node("Third");
         //然后链接
-        niko.next = roman;
-        roman.next = vlad;//向后连
-        vlad.pre = roman;//因为是双向链表 所以还要向前连
-        roman.pre = niko;
+        one.next = two;
+        two.next = three;//向后连
+        three.pre = two;//因为是双向链表 所以还要向前连
+        two.pre = one;
         //现在就构成了一个双向链表 我们来遍历试试
         //先拿first和last指向首尾
-        Node first = niko;
-        Node last = vlad;
+        Node first = one;
+        Node first1 = one;
+        Node last = three;
         while (first != null) {
             System.out.println(first.item);
             first = first.next;
@@ -305,17 +312,16 @@ class Test8 {
             last = last.pre;
         }
         //如果要添加的话 和c差不多
-        //例如在niko和roman间添加michial
-        Node michial = new Node("michial");
-        michial.next = roman;
-        michial.pre = niko;
-        niko.next = michial;
-        roman.pre = michial;//只不过要改四次
-
+        //例如在one和two间添加four
+        Node four = new Node("fourth");
+        four.next = two;
+        four.pre = one;
+        one.next = four;
+        two.pre = four;//只不过要改四次
         //first last 不变
-        while (first != null) {
-            System.out.println(first.item);
-            first = first.next;
+        while (first1 != null) {
+            System.out.println(first1.item);
+            first1 = first1.next;
         }
     }
 }

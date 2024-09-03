@@ -17,15 +17,15 @@ import java.util.function.Predicate;
 //           运行类型 PrintStream
 
 
-//转换流 用于字节流向字符流之间的转换 主要是解决编码问题
-//因为字符流不能直接改编码（即读写的编码默认按照java） 所以当java的编码与文本文件的编码不一致时比如读取时 就可能出现乱码
+//转换流 用于字节流向字符流的转换 主要是解决编码问题
+//因为字符流不能直接改编码（即读写的编码默认按照java） 所以当java的编码与文本文件的编码不一致时就可能出现乱码
 //但是文本文件还是得用字符流读取 转换流就是来解决这个问题的
 //转换流将字节流转为字符流 并且能指定编码类型
 //InputStreamReader Reader的子类 可以将InputStream包装为Reader
 //OutputStreamWriter Writer的子类 可以将OutputStream包装为Writer
 
 class Test4 {
-    //演示按照指定编码读出
+    //演示按照指定编码读出  字节流转字符流
     @Test
     public void flowConvert() throws IOException {
         String filePath = "C:\\Users\\lenovo\\Documents\\IdeaProjects\\Javanotes\\chapter16\\d.txt";
@@ -99,7 +99,7 @@ class Tstt5 {
         properties.setProperty("psw", "123456");
         properties.setProperty("ip", "1.100.86");
         //store才是真正将Properties对象中的kv存到配置文件
-        properties.store(new FileWriter("src\\mysql1.properties"), "第二个参数是注释可以加或者置null");
+        properties.store(new FileWriter("src\\mysql.properties"), "第二个参数是注释可以加或者置null");
         System.out.println("创建配置文件成功");
     }
 }

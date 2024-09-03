@@ -25,7 +25,7 @@ class Test1 {
     public static void main(String[] args) throws InterruptedException {
         System.out.println(Thread.currentThread().getName());//可以看到主线程叫main
         Cat cat = new Cat();//还是要先创建对象
-        cat.start();//启动线程
+        cat.start();//启动子线程
         for (int i = 1; i <= 60; i++) {
             System.out.println("ಹಲೋ ವರ್ಲ್ಡ್" + i);
             Thread.sleep(1000);
@@ -35,7 +35,6 @@ class Test1 {
 
 class Cat extends Thread {
     //当我们继承Thread类后 就可以把Cat当成一个线程
-
     @Override
     public void run() {
         System.out.println(Thread.currentThread().getName());//获取线程的名字 Thread-0
@@ -54,14 +53,14 @@ class Cat extends Thread {
 }
 
 //我们来分析一下上面的程序
-//当我们点了run后 程序生成了一个进程 进程开启了一个主线程main   main又通过start启动了一个子线程（cat.start）
+//当我们点击运行后 程序生成了一个进程 进程开启了一个主线程main   main又通过start启动了一个子线程Thread-0
 //当启动子线程后 主线程不会阻塞 会继续运行 所以看到的效果是交替输出
 //当所有线程执行完毕后 程序才会退出
 //可以用jconsole来连接监测线程
 //子线程也可以再开启子线程
 
 //关于为什么是start方法
-//如果直接.run这样调用的话相当于调用了这个方法 还是在主线程里 并没有开启子线程 而且会阻塞 即run完了才继续for
+//如果直接.run这样调用的话相当于还是在主线程里调用了这个方法 并没有开启子线程 而且会阻塞 即run完了才继续for 不会交替进行
 //而start源码调用了start0 start0由jvm实现 开启线程 并由cpu具体决定什么时候执行
 
 
@@ -75,6 +74,7 @@ class Test2 {
         Thread thread = new Thread(dog);
         thread.start();
         //原理是使用了一种叫静态代理模式
+        System.out.println(Thread.currentThread().getName());
     }
 }
 
@@ -97,6 +97,7 @@ class ThreadProxy implements Runnable {
             target.run();//这个动态绑定是传入对象target的run 执行线程的内容
     }
 
+    //构造器传入要代理的对象
     public ThreadProxy(Runnable target) {//构造器传入target
         this.target = target;
     }
@@ -133,7 +134,6 @@ class Test3 {
 
 //1 资源是独享的 每一个new的对象就是一个线程  每个线程中只用自己对象的资源
 //2 资源是共享的 使用代理 一个代理可以开多个线程 多个线程可以传入相同的对象 资源共享
-//一个thread 就是一个线程
 
 //通知线程退出
 //在一个线程里设置变量作为调教 在另一个线程里控制变量 从而决定何时退出线程
@@ -182,7 +182,6 @@ class AA extends Thread {
 //线程插队
 //yield 当前线程主动礼让 执行其他线程 但不一定礼让成功
 //join  指定线程插队 等到插队的线程结束后才会继续执行当前线程
-//注意yield是主动    join是被动
 //程序大意是子线程和主线程都循环20次 但当主线程循环5次后让子线程插个队
 class Test4 {
     public static void main(String[] args) throws InterruptedException {
@@ -195,7 +194,7 @@ class Test4 {
             {
                 System.out.println("子线程插队");
                 bb.join();//让谁插队就调谁的join  和sleep一样也会抛异常 在main里就直接throw就行
-                //Thread.yield();//主动礼让
+//                Thread.yield();//主动礼让 并不一定成功
 
             }//当子线程执行完后才会继续主线程
         }
@@ -226,6 +225,7 @@ class BB extends Thread {
 //线程礼让就是让线程退回到就绪(ready)状态，再由调度器重新选择调度，所以不一定礼让成功
 //而插队就是到waiting状态
 
+
 //线程同步
 //多线程编程时 一些数据不允许被多个线程同时访问 会产生安全问题 这时可以使用线程同步
 //即当一个线程对内存操作时 其他线程都不可以操作此内存 直到该线程完成操作
@@ -237,12 +237,12 @@ class BB extends Thread {
 // }
 //2同步方法 放在方法声明中
 //public synchronized void m(){  需要被同步的代码  }
-//把synchronized理解为锁，一个线程只有拿到锁后才能执行后面的方法，锁未被释放前其他线程不能访问，因为没有拿到锁
+//可以把synchronized理解为锁，一个线程只有拿到锁后才能执行后面的方法，锁未被释放前即方法未执行完成前其他线程不能访问，因为没有拿到锁
 //但是要考虑锁的数量 一个对象有一把锁  所以如果多个对象就会有多把锁，不能出现多把锁，目的是让多个线程争取一把锁，保证多个线程的锁是同一个对象的锁，如果多把锁的话就不会实现线程同步
-//还要考虑把锁加在哪个对象上  如下我们不能把锁加到run上 加到run上相当于一个线程拿到锁后会一直卖 就不符合三个窗口的情况
+//还要考虑把锁加在哪个对象或者方法上，如下我们不能把锁加到run上 加到run上相当于一个线程拿到锁后进入死循环会一直卖 就不符合三个窗口的情况 所以锁必须要有释放的机会
 
 //**售票问题**
-//100张票由三个窗口同时卖
+//60张票由三个窗口同时卖
 class Test6 {
     public static void main(String[] args) {
 //        Ticket ticket = new Ticket();
@@ -256,20 +256,20 @@ class Test6 {
         //上面两种方式有概率产生超卖问题
         //不止会产生超卖，运行过程中还能看到有票数重复现象 都是因为多个线程同时访问了ticketNum
 
-//        Ticket2 ticket2 = new Ticket2();
-//        new Thread(ticket2).start();
-//        new Thread(ticket2).start();
-//        new Thread(ticket2).start();
+        Ticket2 ticket2 = new Ticket2();//Ticket2对象只有一个
+        new Thread(ticket2).start();
+        new Thread(ticket2).start();
+        new Thread(ticket2).start();
 
-        new Ticket3().start();
-        new Ticket3().start();
-        new Ticket3().start();
+//        new Ticket3().start();
+//        new Ticket3().start();
+//        new Ticket3().start();
     }
 }
 
-//Runnable接口
+//实现Runnable接口
 class Ticket implements Runnable {
-    public int ticketNum = 100;//默认是静态 所以不用加static
+    public int ticketNum = 60;//不用static
 
     @Override
     public void run() {
@@ -310,8 +310,9 @@ class Ticket1 extends Thread {
 }
 
 //解决超卖
+//1实现Runnable
 class Ticket2 implements Runnable {
-    public int ticketNum = 100;
+    public int ticketNum = 60;
     public boolean loop = true;
 
     public synchronized void sale()//用线程同步 保证同时只有一个线程在sale
@@ -331,25 +332,27 @@ class Ticket2 implements Runnable {
     }
 
     @Override
-    //关于为什么不在run上锁 因为run里面是while死循环 所以线程拿到锁后没退出run之前就一直卖 所以直到卖完还是只有一个窗口在卖
-    //所以拿出来建一个新方法
+    //关于为什么不在run上锁 因为run里面是while死循环即run方法在卖完前不会结束
+    //所以一个线程拿到锁后没退出run之前就一直卖 所以直到卖完还是只有一个窗口在卖
+    //如果是在sale上锁，就可以满足拿到锁就卖，卖完一张还锁，继续下一次竞争
+    //所以拿出来建一个新方法sale
     public void run() {
         while (loop) {
             sale();
         }
     }
 }
-//这样能成功的原因是  这里调用的是同一个对象的run方法    同步锁锁的是方法 针对同一个对象才有效
+//发现不会再出现票数重复的现象
+//这样能成功的原因是  这里调用的是同一个对象的run方法，想想静态代理模式，最后绑定的都是同一个对象的方法
 //如果用的继承的方式实现多线程的 new了三个对象就有三把锁 三个对象的run就三个线程分别执行 锁不住
-//syn关键字是多个线程进入同一个对象的同一方法的，如果你是不同对象，那每次都会有一个线程，syn没有任何作用
-//这里也能看出第二种方法的资源共享
+//syn关键字是多个线程进入同一个对象的同一方法的，针对同一个对象才有用，如果你是不同对象，那每次都会有一个线程，syn没有任何作用，所以要考虑把锁给谁
+//这里也能看出第二种方法即静态代理模式的资源共享
 
-
-//想用继承的话得将sale方法设为静态方法，因为如果不设为静态方法的话，
-//会使得三个对象调用的是不同的方法，那同步就没有什么作用了，调用的都不是同一个方法，所以算不上是同时访问了
+//2继承Thread
+//想用继承的话得将sale方法设为静态方法，因为如果不设为静态方法的话，会使得三个对象调用的是不同的方法，那同步就没有什么作用了
 //所以可以认为 继承Thread本身是资源独享 我们用static让他共享起来 同样解决问题
 class Ticket3 extends Thread {
-    public static int ticketNum = 100;//静态
+    public static int ticketNum = 60;//静态
     public static boolean loop = true;
 
     public static synchronized void sale() {//static
@@ -376,7 +379,7 @@ class Ticket3 extends Thread {
 }
 
 
-//互斥锁
+//锁（互斥锁）
 //Java中引入互斥锁来保证共享数据的完整性
 //关键字synchronized与互斥锁联系 下面这一段应该是对synchronized锁的介绍 写的很好
 //在C/C++可直接使用操作系统提供的互斥锁实现同步和线程的阻塞和唤起，与之不同的是，java要把这些底层封装，
@@ -391,17 +394,19 @@ class Ticket3 extends Thread {
 //而对象里非synchronized修饰的方法可正常被调用，不受锁影响。
 //局限性：程序效率降低
 
-//同步方法（非静态）的锁  可以是加在this也可以加在本类的实例对象中的对象
-//同步方法（静态）的锁 为当前类本身
+
+//加锁的方式
+//非静态方法加锁  可以加在方法声明、this，也可以加在类的属性
+//静态方法加锁  加在方法声明或者在方法内部使用同步代码块
 //下面是演示加锁  具体代码内容可以不用管
 class Lock implements Runnable {
     public int ticketNum = 100;
     public boolean loop = true;
     Object object = new Object();//new
 
-    public /*synchronized*/ void sell()//非静态同步方法 锁加在this对象
+    public /*synchronized*/ void sell()//非静态方法加锁
     {
-        //synchronized (this) {//这是用同步代码块加锁  也是加在this对象
+        //synchronized (this) {//这是用同步代码块加锁
         synchronized (object) {//这个锁加在this对象中的的对象  也算成功加锁
             //object是成员变量，当有线程占用该对象时，object实际也被占用了，所以给object上锁是一样的效果。
             if (ticketNum <= 0) {
@@ -418,18 +423,17 @@ class Lock implements Runnable {
         }
     }
 
-    //演示静态方法
-    public static synchronized void m1() {
-        //对静态方法加锁 加在类上
+    //演示静态方法加锁
+    public static synchronized void m1() {//在方法声明时加在方法上
+
     }
 
     public static void m2() {                //或者对象.class
-        synchronized (Lock.class) {//对静态方法用同步代码块加锁
+        synchronized (Lock.class) {//在方法内部使用同步代码块对类加锁
 
         }
     }
 
-    //总之就是对方法synchronized实现加锁  或者在方法中用同步代码块实现加锁
     @Override
     public void run() {
         while (loop) {
@@ -448,7 +452,7 @@ class Lock implements Runnable {
 //下面模拟死锁现象
 class DeadLock extends Thread {
     static Object o1 = new Object();
-    static Object o2 = new Object();
+    static Object o2 = new Object();//static
     boolean flag;
 
     public DeadLock(boolean flag) {
@@ -464,7 +468,7 @@ class DeadLock extends Thread {
             synchronized (o1) {
                 System.out.println(Thread.currentThread().getName() + "拿到o1锁");
                 synchronized (o2) {
-                    System.out.println(Thread.currentThread().getName() + "拿到o2锁");
+                    System.out.println(Thread.currentThread().getName() + "拿到o2锁2");
                 }
             }
 
@@ -472,7 +476,7 @@ class DeadLock extends Thread {
             synchronized (o2) {
                 System.out.println(Thread.currentThread().getName() + "拿到o2锁");
                 synchronized (o1) {
-                    System.out.println(Thread.currentThread().getName() + "拿到o1锁");
+                    System.out.println(Thread.currentThread().getName() + "拿到o1锁2");
                 }
             }
         }
@@ -486,10 +490,7 @@ class Test7 {
         deadLock1.start();
         deadLock2.start();//启动两个线程
     }
-}
-
-
-//被sy修饰的需要拿到锁才能继续执行   考虑把锁给谁
+}//可以看到程序不会结束，一直在阻塞
 
 
 //什么时候释放锁

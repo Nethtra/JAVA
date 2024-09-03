@@ -10,15 +10,15 @@ import java.util.*;
 //Map接口
 //Map与Collection并列存在 用于保存具有映射关系的数据 即k-v键值对 双列集合
 //Set其实也是存的k-v键值对 只不过value是一个固定的值 只用到了key 而在这里可以自定义
+//Map中的key不能重复(重复时会替换(覆盖)相同key的value)  value可以重复
+//key可以为null但只能出现一次 value也可以null可以出现多次
+//常用String类作为key 因为String是不可变字符序列
 //HashMap
-//key 和 value可以是任何类型的数据 会被封装到HashMap$Node对象中存入Map(熟悉吗)
+//key 和 value可以是任何类型的数据 会被封装到HashMap$Node对象中然后存入Map集合中(熟悉吗)
 //    key就是那个对象
 //与HashSet一样添加与取出顺序不一致，添加时按key的hash值添加 但每次取出都一致
 //线程不安全
 //基本可以认为和HashSet一样 因为HashSet调的也是HashMap
-//Map中的key不能重复(重复时会替换(覆盖)相同key的value)  value可以重复
-//key可以为null但只能出现一次 value也可以null可以出现多次
-//常用String类作为key 因为String是不可变字符序列
 class Test1 {
     public static void main(String[] args) {
         //用HashMap演示一下
@@ -32,16 +32,18 @@ class Test1 {
 }
 
 //继续分析
-//刚才我们说k-v 最后会被封装在HashMap$Node对象中 然后存在集合里
-//但其实为了方便遍历 一般会手动创建entrySet（EntrySet类型 集合的名字叫entrySet）集合（Map里有entrySet方法来返回这个集合）用Set接收
-//这个集合定义存放的元素的类型是Map.Entry（Entry是Map里的一个接口）
-//但实际上传入的是HashMap$Node类型，因为HashMap$Node implements Map.Entry 所以可以将Entry实例化为Node传入
-//Map里有entrySet方法来返回这个集合
+//首先知道：
+//HashMap$Node是HashMap的静态内部类
+//Entry是Map里的一个接口 定义了getKey和getValue等方法
+//EntrySet KeySet Values 是HashMap的成员内部类
+//EntrySet实现了Set
+//HashMap$Node implements Map.Entry
+//刚才我们说k-v最后会被封装在HashMap$Node对象中,然后存在Map集合里
+//但其实为了方便遍历，一般会手动创建entrySet集合（EntrySet类型 集合的名字叫entrySet，Map里有entrySet方法来返回这个集合）并用Set接收
+//这个集合定义存放的元素的类型是Map.Entry 但实际上传入的是HashMap$Node类型，将Entry实例化为Node传入
 //这时我们就把HashMap$Node对象存到entrySet里 方便我们的遍历 因为Entry中提供了getKey和getValue方法
 //而且因为用Set类型接收 所以可以用迭代器  进而方便了遍历
-//final class EntrySet extends AbstractSet<Map.Entry<K,V>>在HashMap里  也就是说EntrySet是HashMap的内部类
-//总结 就是把Node封装成Entry 再放到entrySet集合里 而Entry中提供了getKey和getValue方法方便遍历
-//Set entrySet=hashMap.entrySet();用Set接收可以使用迭代器
+//总结 就是把HashMap$Node放到entrySet集合里，set集合本身可以用构造器，且Entry中提供了getKey和getValue方法方便遍历
 //而实际上entrySet中的一个个Entry是以地址的形式存储的  其中地址指向Node中的key和value Node还是在table表里
 //Map中还有keySet和values方法返回单独key或者value组成的集合，分别定义为KeySet和Values类型
 //所以entrySet返回kv集合 keySet返回k集合 values返回v集合
@@ -50,13 +52,13 @@ class Test2 {
     }
 
     public static void main(String[] args) {
-        Map hashmap = new HashMap();
-        hashmap.put("1", "abc");
-        hashmap.put("2", "def");
-        hashmap.put(null, null);
+        Map hashMap = new HashMap();
+        hashMap.put("1", "abc");
+        hashMap.put("2", "def");
+        hashMap.put(null, null);
         //用set接
-        Set set = hashmap.entrySet();//拿到这个集合 注意是Set类型
-        System.out.println(set.getClass());//EntrySet?
+        Set set = hashMap.entrySet();//拿到这个集合 注意是Set类型
+        System.out.println(set.getClass());//EntrySet
         for (Object o : set) {
             Map.Entry entry = (Map.Entry) o;//拿出来用Entry向下转型
             System.out.println(entry.getKey());//现在可以用get了
@@ -64,8 +66,8 @@ class Test2 {
         }
         System.out.println("=====================================");
         //keySet和values
-        Set set1 = hashmap.keySet();
-        Collection values = hashmap.values();
+        Set set1 = hashMap.keySet();
+        Collection values = hashMap.values();
         System.out.println(set1.getClass());
         System.out.println(values.getClass());
     }
@@ -77,7 +79,7 @@ class Test2 {
 //Map的常用方法
 //put 添加
 //remove传入key返回删除
-//get传入key返回value
+//get()传入key返回value
 //size获取元素个数
 //isEmpty判断元素个数是否为0
 //clear清空
@@ -112,13 +114,13 @@ class Test3 {
         Collection values = map.values();
         //增强for
         for (Object o : values) {
-            System.out.println(values);
+            System.out.println(o);
         }
         //迭代器
         Iterator iterator1 = values.iterator();
         while (iterator1.hasNext()) {
             Object next = iterator1.next();
-            System.out.println(values);
+            System.out.println(next);
         }
 
         System.out.println("===================================");
@@ -132,7 +134,7 @@ class Test3 {
             System.out.println(entry.getKey() + " " + entry.getValue());
         }
         //迭代器
-        Iterator iterator2 = map.entrySet().iterator();
+        Iterator iterator2 = entrySet.iterator();
         while (iterator2.hasNext()) {
             Object next = iterator2.next();
             //也是先向下转型
@@ -146,9 +148,8 @@ class Test3 {
 
 
 //小题
-//使用HashMap添加三个员工对象 key:num   value：员工对象
+//使用HashMap添加三个员工对象 key:num   value:员工对象
 //并遍历显示工资大于1w8的员工
-//Employ name sal id
 class Employ {
     private String name;
     private double sal;
